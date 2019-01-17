@@ -1,4 +1,9 @@
 program  createGeo
+	
+	
+	! create a geometry file
+
+	!2019/01/17 fix area value, rewrite documentation
 	!2012/06/25 from v 1.1
 
 	!2012/03/28 from v1.0
@@ -121,7 +126,7 @@ program  createGeo
 	real(8) apot_p,apot_h,volume
 	real(8), external :: polyProfile  !,polyInvert 
 	real(8) shell_H1_start,shell_H2_start, r_ip1, r_ip2, rip2, rip1
-	real(8) obstr_ip, obstr_edge, h1_start, h2_start !, r_ip2, rip2, rip1
+	real(8) obstr_ip, obstr_edge, h1_start, h2_start !, rip2, rip1
     character(8)  :: date
     character(10) :: time
     character(5)  :: zone
@@ -184,8 +189,8 @@ program  createGeo
 	!read(10,geoPars)
 	close(10)
 
-	if (focal_length/=0) f_length=focal_length*100
-	print*,"F_length (cm) = ",F_length	!HHH
+	!if (focal_length/=0) f_length=focal_length*100
+	!print*,"F_length (cm) = ",F_length	!HHH
 	!HHH fine
 	shell_length1=shell_length
 	shell_length2=shell_length
@@ -193,7 +198,7 @@ program  createGeo
 	print*,"F_length (cm) = ",F_length	!HHH
 	print*,"f_height1 (mm) = ",shell_length1	!HHH
 	print*,"f_height2 (mm) = ",shell_length2	!HHH
-
+	F_LENGTHmm=F_LENGTH*10
 
 	!fissa nw (numero di shell)	da passare a geoinp
 	if  (nShells/=0)	then
@@ -257,8 +262,8 @@ program  createGeo
 !	H2_start=H2_start_slope*r+H2_start_intercept
 !	!print*,"f_height1 (mm) = ",shell_length1	!HHH
 	alkw=shell_length1*tan(angular_shell_separation_deg*PI/180.) !distanza tra uno specchio e l'altro per
-	! evitare obreggiamenti fuori asse
-	F_LENGTHmm=F_LENGTH*10
+		! evitare obreggiamenti fuori asse
+
 
 	do i=1,nw+1 !ciclo do per costruzione degli specchi	e calcolo del peso
 	!gliene faccio calcolare uno in piu' per usarlo per blocco centrale
@@ -311,15 +316,16 @@ program  createGeo
 		!l'asse z e' orientato verso il piano focale, H e' negativo sulla parabola.
 		!non e' necessario cambiare il segno di a2 e b2 perche' al quadrato
 		rmax1(i)=polyProfile(-shell_length1,rmed1(i),a1(i),a2(i),a3(i),a4(i),a5(i))		
-		rmin1(i)=polyProfile(shell_length2,rmed1(i),b1(i),b2(i),b3(i),b4(i),b5(i))		
+		rmin1(i)=polyProfile(shell_length2,rmed1(i),b1(i),b2(i),b3(i),b4(i),b5(i))	
+		!radii at intermediate pupils	
 		rip1=polyProfile(h1_start,rmed1(i),a1(i),a2(i),a3(i),a4(i),a5(i))
 		rip2=polyProfile(-h2_start,rmed1(i),a1(i),a2(i),a3(i),a4(i),a5(i))		
 		!obstr ip and obstr_edge are the extremes reflection heights on surface 1
 		obstr_ip=max(h1_start,h2_start*(dtan(theta(i))-dtan(2*theta(i)))/(tan(2*theta(i))-dtan(3*theta(i))))
 		obstr_edge=min(shell_length1,shell_length2*(dtan(theta(i))-dtan(2*theta(i)))/(tan(2*theta(i))-dtan(3*theta(i))))
 		!volume=spes*pi*((rmax1(i)+rmed1(i))*apot_p+(rmed1(i)+rmin1(i))*apot_h)
-		r_ip1=rmed1(i)+h1_start/dtan(theta(i))
-		r_ip2=rmed1(i)-h2_start/dtan(3*theta(i))   
+		!r_ip1=rmed1(i)+h1_start/dtan(theta(i))
+		!r_ip2=rmed1(i)-h2_start/dtan(3*theta(i))   
 
 		!la formula calcola lo spessore in base al diametro alla pupilla di ingresso
 		!il denominatore (1-2m) serve perche' si calcola in base al raggio esterno
@@ -349,11 +355,17 @@ program  createGeo
 			!			*thick(i)*WallDensity/1000000.
 			apot_p=shell_length1/dcos(theta(i))
 			apot_h=shell_length2/dcos(3*theta(i))
-			volume=spes*pi*((+(rmed1(i)+obstr_ip/dtan(theta(i))))*apot_p+(rmed1(i)+rmin1(i))*apot_h)
+			!volume=spes*pi*((+(rmed1(i)+obstr_ip/dtan(theta(i))))*apot_p+(rmed1(i)+rmin1(i))*apot_h)
+			volume=spes*pi*((rmed1(i)+rmax1(i))*apot_p+(rmed1(i)+rmin1(i))*apot_h)
 			peso=volume*WallDensity/1000000.			
 			weight(i)=peso
 			!area=pi*(rmax1(i)**2-rmed1(i)**2)/100 ! collecting area
-			area=pi*((rmax1(i)-obstr_edge/dtan(theta(i)))**2-(rmed1(i)+obstr_ip/dtan(theta(i)))**2)/100 ! collecting area
+			!area=pi*((rmax1(i)-obstr_edge/dtan(theta(i)))**2-(rmed1(i)+obstr_ip/dtan(theta(i)))**2)/100 ! collecting area
+			!2019/01/17 it seems that previous version was calculating only double reflection area(maybe?)
+			!do projected area
+			area=pi*(rmax1(i)**2-max(rmed1(i),rmax1(i+1)+spes)**2)/100 ! collecting area, approx in spes, should be next shell
+		
+			!print *,obstr_ip,obstr_edge
 			acoll(i)=area
 			tarea=area+tarea
 			tpeso=tpeso+peso

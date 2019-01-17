@@ -1,0 +1,51 @@
+
+%------------------------------
+logging started on /home/cotroneo/Desktop/f90/EAlog.txt
+2019-01-16 23:03:49,089 - __main__ - DEBUG - program call:
+EA.py\sProject00\s[coating1.dat,coating2.dat,coating2.dat,coating3.dat]\s[[1,2,3,4,5],[6,7,8,9],[10,11,12,13],[14,15]]\s[1.,80.,80]
+2019-01-16 23:03:49,091 - __main__ - DEBUG - arguments:
+EA.py
+Project00
+[coating1.dat,coating2.dat,coating2.dat,coating3.dat]
+[[1,2,3,4,5],[6,7,8,9],[10,11,12,13],[14,15]]
+[1.,80.,80]
+2019-01-16 23:03:49,091 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2019-01-16 23:03:49,100 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2019-01-16 23:03:49,100 - __main__ - INFO - Calculating effective area for 4 groups
+2019-01-16 23:03:49,101 - __main__ - INFO - group 0: 5 shells
+2019-01-16 23:03:49,105 - __main__ - DEBUG - Roughness first and last layer: 0 ; 0
+2019-01-16 23:03:49,105 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2019-01-16 23:03:49,105 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2019-01-16 23:03:49,164 - __main__ - DEBUG - Calculating effective area for 5 shells...
+2019-01-16 23:03:49,165 - __main__ - DEBUG - Reflex for shell #1 calculated
+2019-01-16 23:03:49,166 - __main__ - DEBUG - Reflex for shell #2 calculated
+2019-01-16 23:03:49,166 - __main__ - DEBUG - Reflex for shell #3 calculated
+2019-01-16 23:03:49,167 - __main__ - DEBUG - Reflex for shell #4 calculated
+2019-01-16 23:03:49,168 - __main__ - DEBUG - Reflex for shell #5 calculated
+2019-01-16 23:03:49,168 - __main__ - INFO - group 1: 4 shells
+2019-01-16 23:03:49,172 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2019-01-16 23:03:49,172 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 30.0
+2019-01-16 23:03:49,173 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2019-01-16 23:03:49,224 - __main__ - DEBUG - Calculating effective area for 4 shells...
+2019-01-16 23:03:49,225 - __main__ - DEBUG - Reflex for shell #6 calculated
+2019-01-16 23:03:49,226 - __main__ - DEBUG - Reflex for shell #7 calculated
+2019-01-16 23:03:49,226 - __main__ - DEBUG - Reflex for shell #8 calculated
+2019-01-16 23:03:49,227 - __main__ - DEBUG - Reflex for shell #9 calculated
+2019-01-16 23:03:49,227 - __main__ - INFO - group 2: 4 shells
+2019-01-16 23:03:49,232 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2019-01-16 23:03:49,232 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 30.0
+2019-01-16 23:03:49,232 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2019-01-16 23:03:49,286 - __main__ - DEBUG - Calculating effective area for 4 shells...
+2019-01-16 23:03:49,286 - __main__ - DEBUG - Reflex for shell #10 calculated
+2019-01-16 23:03:49,287 - __main__ - DEBUG - Reflex for shell #11 calculated
+2019-01-16 23:03:49,288 - __main__ - DEBUG - Reflex for shell #12 calculated
+2019-01-16 23:03:49,289 - __main__ - DEBUG - Reflex for shell #13 calculated
+2019-01-16 23:03:49,289 - __main__ - INFO - group 3: 2 shells
+2019-01-16 23:03:49,293 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2019-01-16 23:03:49,293 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 40.0
+2019-01-16 23:03:49,294 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2019-01-16 23:03:49,345 - __main__ - DEBUG - Calculating effective area for 2 shells...
+2019-01-16 23:03:49,346 - __main__ - DEBUG - Reflex for shell #14 calculated
+2019-01-16 23:03:49,347 - __main__ - DEBUG - Reflex for shell #15 calculated
+2019-01-16 23:03:49,347 - __main__ - INFO - Generating plot of total area.

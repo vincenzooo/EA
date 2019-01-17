@@ -54,9 +54,11 @@ ex:
 
 	Thickness(A)	Material
 	0	a-Si
+	200	Pt
+	100     a-C
+	..
 
-..
-from substrate (thickness 0) to top layer. Material is a string indicating a file
+layers are listed from substrate (thickness 0) to top layer. Material is a string indicating a file
 with optical constants, corresponding DABAX format (text file with extension .nk) 
 in a folder internal_data\nk.dir
     Limitation: in this version accept at most 2 materials (+substrate) and always

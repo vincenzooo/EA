@@ -2,11 +2,9 @@
 
 EA.py
 ----------
-Calculate Effective area of nested shells X-ray telescopes (python/Fortran)
+Calculate On Axis Effective area of a nested shell X-ray telescope.
 
-Calculate On Axis Effective area of a nested shell X-ray telescope (server version).
-
-This script is lanuched as:
+This script is launched as:
 
     $ python EA.py output_folder list_of_coatings list_of_shell_groups energy_range
 
@@ -17,10 +15,11 @@ Don't use any delimiter for strings (see examples for sintax).
 
 Notes
 ----------
-This is version for server, assumes (see below for description of formats:
-- the output folder is existing.and contains:
--- one text file with layers information for each coating
--- shelStruct_start.dat containing information on the geometry
+This is version for server, that is assumed to take care of folder structure.
+It assumes the output folder is existing.and contains 
+(see below for description of formats) :
+* one text file with layers information for each coating
+* shelStruct_start.dat containing information on the geometry
 
 Example
 ----------

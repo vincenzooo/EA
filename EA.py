@@ -153,6 +153,7 @@ from astropy.io import ascii as asciitable
 from pylab import * #equivalent to the 3 aboce, matplotlib must be installed.
 from scipy.interpolate.interpolate import interp1d
 from internal_data.fortran_lib import reflexf90
+import ast 
 '''
 from itertools import cycle
 lines = ["-","--","-.",":"]
@@ -276,7 +277,7 @@ if __name__=="__main__":
         # EA.py Configfolder ['coating1.xml','coating2.xml','coating3.xml'] [[1,10,1],[11,20,2],[21,31,2]] [1.,80.,80]
         configFolder=sys.argv[1]    
         coatinglist=sys.argv[2]
-        grouplist=eval(sys.argv[3])
+        grouplist=ast.literal_eval(sys.argv[3])
         enerstart,enerend,npoints=strExtractArray(sys.argv[4],checkNumeric=True)
         ener=arange(enerstart,enerend,npoints)
         return [configFolder,coatinglist,grouplist,ener]
@@ -287,7 +288,7 @@ if __name__=="__main__":
         configFolder=sys.argv[1]    
         coatinglist=sys.argv[2]
         coatIndexlist=strExtractArray(sys.argv[3])
-        grouplist=eval(sys.argv[4])
+        grouplist=ast.literal_eval(sys.argv[4])
         enerstart,enerend,npoints=strExtractArray(sys.argv[5],checkNumeric=True)
         ener=arange(enerstart,enerend,npoints)        
         return [configFolder,coatinglist,coatindexlist,grouplist,ener]
@@ -298,7 +299,7 @@ if __name__=="__main__":
         logger.debug('arguments:\n%s'%'\n'.join(sys.argv))
         configFolder=sys.argv[1]    
         coatinglist=strExtractArray(sys.argv[2])
-        grouplist=eval(sys.argv[3])
+        grouplist=ast.literal_eval(sys.argv[3])
         enerstart,enerend,npoints=strExtractArray(sys.argv[4],checkNumeric=True)
         ener=arange(float(enerstart),float(enerend),(float(enerend)-float(enerstart))/long(npoints))        
         return [configFolder,coatinglist,grouplist,ener]    
@@ -312,7 +313,7 @@ if __name__=="__main__":
         logger.debug('arguments:\n%s'%'\n'.join(sys.argv))
         configFolder=sys.argv[1]    
         coatinglist=strExtractArray(sys.argv[2])
-        grouplist=eval(sys.argv[3])
+        grouplist=ast.literal_eval(sys.argv[3])
         enerstart,enerend,npoints=strExtractArray(sys.argv[4],checkNumeric=True)
         ener=arange(float(enerstart),float(enerend),(float(enerend)-float(enerstart))/long(npoints))        
         return [configFolder,coatinglist,grouplist,ener]    

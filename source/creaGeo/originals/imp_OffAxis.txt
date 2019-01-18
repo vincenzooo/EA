@@ -1,0 +1,73 @@
+&impdir     
+ WORKDIR = 'SMARTX_1'
+ DIRORIGIN = 'partenza'
+ DIRRISULT = 'CONFIG1_IrC'             
+/                                                                                                  
+&somma             
+numeropar=1        
+controllaener=1     
+/                                                                                                   
+&CreateDiams
+FieldOfViewDeg = 0.336       
+thickExtSh=0.4
+LinearThick=0      
+WallDensity=2.2       
+profileType='ph'    
+massimo = 3022.90
+/                                                                                                  
+&geopars             
+nshDaImp=292  
+F_LENGTHdaImp_m  = 10
+F_HEIGHTdaImp_cm =  20.0  
+CreateFileShells=1
+NameFileShells='SmartX_diam01.dat'                    
+/                                                                                                  
+&impRayTrace         
+ang0Arcmin=0         
+ang1Arcmin=10     
+pasa=2    
+writeImpactPoints=1  
+nSamplePoints=10000  
+/                                                                                       
+&plotPar            
+En_min=1           
+En_max=10          
+npoints=50
+useStartDirFlag_int= 0
+writethickness=0     
+writethroughput=1   
+monostrato=0         
+/           
+
+                                                                                      
+&funkpars         
+n_bilayers=2
+ndim=4          
+mat1odd= 'Ir.dat'  
+mat2even = 'a-C.dat'  
+MatEst1st= 'a-C.dat'  
+MatEst2nd= 'Ir.dat'   
+esterno1st=75d0     
+esterno2nd=3000d0    
+matsub= 'sub.dat' 
+oddrough=4.0      
+evenrough=4.0    
+subrough=4.0          
+/                                                                                                                                                                                  
+1 1 0 1 1 partenza                                                                                  
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    

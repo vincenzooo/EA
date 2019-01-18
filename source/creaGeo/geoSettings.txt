@@ -1,0 +1,32 @@
+!2012/03/29 for version after 1, renamed in geoSettings.txt    
+                                                                                             
+&geoSettings
+nShells=12
+focal_length  = 0.7
+maxDiam = 152.783191
+angular_shell_separation_deg = 0.073
+shell_length =  45        
+thickness_intercept=0.2				 
+thickness_slope=0.000
+minThick=0.2     
+WallDensity=8.8       
+profileType='ph'          
+/    
+
+                                                                                          
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    

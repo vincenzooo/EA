@@ -10,12 +10,14 @@ This script is launched as:
 
 and calculate the effective area of a nested shell telescope, where shells are grouped
 by coating and partial effective area of each group is calculated.
-pass arguments separated by spaces without any space inside the single argument.
-Don't use any delimiter for strings (see examples for sintax).
+pass arguments separated by spaces (without any space inside the single argument).
+Don't use any delimiter for strings (see example below).
 
 Notes
 ----------
-This is version for server, that is assumed to take care of folder structure.
+An online GUI with extended XML capabilities is available at http://hea-www.harvard.edu/WTD/
+from which this code is derived. Server is assumed to take care of folder structure and code
+has a fixed folder structure.
 It assumes the output folder is existing.and contains 
 (see below for description of formats) :
 * one text file with layers information for each coating

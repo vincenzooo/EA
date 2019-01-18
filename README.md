@@ -59,8 +59,10 @@ ex:
 	..
 
 layers are listed from substrate (thickness 0) to top layer. Material is a string indicating a file
-with optical constants, corresponding DABAX format (text file with extension .nk) 
+with optical constants, corresponding IMD format (text file with extension .nk) 
 in a folder internal_data\nk.dir
+optical constants from IMD optical-constants database [Windt 1998] can be downloaded at http://www.rxollc.com/idl/
+
     Limitation: in this version accept at most 2 materials (+substrate) and always
     require an even number of layers (for a simgle layer use two layers of half thickness).
 

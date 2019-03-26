@@ -3,7 +3,7 @@
 
 """Calculate On Axis Effective area of a nested shell X-ray telescope (server version).
 
-This script is lanuched as:
+This script is launched as:
 
     $ python EA.py output_folder list_of_coatings list_of_shell_groups energy_range
 

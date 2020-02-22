@@ -1,0 +1,10 @@
+internal_data/nk.dir/
+
+!internal_data/nk.dir/a-C.dat
+!internal_data/nk.dir/a-Si.dat
+!internal_data/nk.dir/W.dat
+!internal_data/nk.dir/Ni.dat
+!internal_data/nk.dir/Ir.dat
+!internal_data/nk.dir/Au.dat
+!internal_data/nk.dir/Pt.dat
+internal_data/__pycache__/

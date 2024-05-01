@@ -8,3 +8,31 @@ internal_data/nk.dir/
 !internal_data/nk.dir/Au.dat
 !internal_data/nk.dir/Pt.dat
 internal_data/__pycache__/
+
+**/desktop.ini
+
+# VC
+workspace.ini
+*.egg-info*
+*.bak
+*.stackdump
+
+# Compiled files
+*.pyc
+*.py[cod]
+*.a
+*.o
+*.so
+__pycache__
+
+# Other generated files
+*/version.py
+*/cython_version.py
+htmlcov
+.coverage
+MANIFEST
+.ipynb_checkpoints
+
+# Visual Studio Code project files
+.vscode
+*.code-workspace

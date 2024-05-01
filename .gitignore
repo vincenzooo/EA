@@ -8,3 +8,5 @@ internal_data/nk.dir/
 !internal_data/nk.dir/Au.dat
 !internal_data/nk.dir/Pt.dat
 internal_data/__pycache__/
+
+**/desktop.ini

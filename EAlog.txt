@@ -49,3 +49,1230 @@ Project00
 2019-01-16 23:03:49,346 - __main__ - DEBUG - Reflex for shell #14 calculated
 2019-01-16 23:03:49,347 - __main__ - DEBUG - Reflex for shell #15 calculated
 2019-01-16 23:03:49,347 - __main__ - INFO - Generating plot of total area.
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 06:11:50,598 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 06:12:22,398 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 06:12:22,398 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 06:12:22,414 - __main__ - DEBUG - program call:
+EA.py Project00 [coating001.dat,coating002.dat,coating003.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 06:12:22,414 - __main__ - DEBUG - program call:
+EA.py Project00 [coating001.dat,coating002.dat,coating003.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 06:12:22,414 - __main__ - DEBUG - program call:
+EA.py Project00 [coating001.dat,coating002.dat,coating003.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 06:12:22,414 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating001.dat,coating002.dat,coating003.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 06:12:22,414 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating001.dat,coating002.dat,coating003.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 06:12:22,414 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating001.dat,coating002.dat,coating003.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 06:12:22,414 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 06:12:22,414 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 06:12:22,414 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 06:12:22,980 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 06:12:22,980 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 06:12:22,980 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 06:12:22,980 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 06:12:22,980 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 06:12:22,980 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 06:12:22,980 - __main__ - INFO - group 0: 6 shells
+2024-05-01 06:12:22,980 - __main__ - INFO - group 0: 6 shells
+2024-05-01 06:12:22,980 - __main__ - INFO - group 0: 6 shells
+2024-05-01 06:13:17,364 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 06:13:17,364 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 06:13:17,364 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 06:13:17,368 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 06:13:17,368 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 06:13:17,368 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 06:13:17,368 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 06:13:17,368 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 06:13:17,368 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 06:13:17,368 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 06:13:17,368 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 06:13:17,368 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 06:13:17,368 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 06:13:17,368 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 06:13:17,368 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 06:13:17,392 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 06:13:17,392 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 06:13:17,392 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 06:13:17,392 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 06:13:17,393 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 06:13:17,393 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 06:13:17,393 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 06:13:17,393 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 06:13:17,395 - __main__ - INFO - group 0: 6 shells
+2024-05-01 06:13:17,395 - __main__ - INFO - group 0: 6 shells
+2024-05-01 06:13:17,395 - __main__ - INFO - group 0: 6 shells
+2024-05-01 06:13:17,395 - __main__ - INFO - group 0: 6 shells
+2024-05-01 06:13:17,402 - __main__ - DEBUG - Roughness first and last layer: 0 ; 0
+2024-05-01 06:13:17,402 - __main__ - DEBUG - Roughness first and last layer: 0 ; 0
+2024-05-01 06:13:17,402 - __main__ - DEBUG - Roughness first and last layer: 0 ; 0
+2024-05-01 06:13:17,402 - __main__ - DEBUG - Roughness first and last layer: 0 ; 0
+2024-05-01 06:13:17,402 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 06:13:17,402 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 06:13:17,402 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 06:13:17,402 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 06:13:17,402 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 06:13:17,402 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 06:13:17,402 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 06:13:17,402 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 06:13:18,902 - __main__ - DEBUG - Calculating effective area for 6 shells...
+2024-05-01 06:13:18,902 - __main__ - DEBUG - Calculating effective area for 6 shells...
+2024-05-01 06:13:18,902 - __main__ - DEBUG - Calculating effective area for 6 shells...
+2024-05-01 06:13:18,902 - __main__ - DEBUG - Calculating effective area for 6 shells...
+2024-05-01 06:13:18,913 - __main__ - DEBUG - Reflex for shell #1 calculated
+2024-05-01 06:13:18,913 - __main__ - DEBUG - Reflex for shell #1 calculated
+2024-05-01 06:13:18,913 - __main__ - DEBUG - Reflex for shell #1 calculated
+2024-05-01 06:13:18,913 - __main__ - DEBUG - Reflex for shell #1 calculated
+2024-05-01 06:13:18,918 - __main__ - DEBUG - Reflex for shell #2 calculated
+2024-05-01 06:13:18,918 - __main__ - DEBUG - Reflex for shell #2 calculated
+2024-05-01 06:13:18,918 - __main__ - DEBUG - Reflex for shell #2 calculated
+2024-05-01 06:13:18,918 - __main__ - DEBUG - Reflex for shell #2 calculated
+2024-05-01 06:13:18,918 - __main__ - DEBUG - Reflex for shell #3 calculated
+2024-05-01 06:13:18,918 - __main__ - DEBUG - Reflex for shell #3 calculated
+2024-05-01 06:13:18,918 - __main__ - DEBUG - Reflex for shell #3 calculated
+2024-05-01 06:13:18,918 - __main__ - DEBUG - Reflex for shell #3 calculated
+2024-05-01 06:13:18,923 - __main__ - DEBUG - Reflex for shell #4 calculated
+2024-05-01 06:13:18,923 - __main__ - DEBUG - Reflex for shell #4 calculated
+2024-05-01 06:13:18,923 - __main__ - DEBUG - Reflex for shell #4 calculated
+2024-05-01 06:13:18,923 - __main__ - DEBUG - Reflex for shell #4 calculated
+2024-05-01 06:13:18,927 - __main__ - DEBUG - Reflex for shell #5 calculated
+2024-05-01 06:13:18,927 - __main__ - DEBUG - Reflex for shell #5 calculated
+2024-05-01 06:13:18,927 - __main__ - DEBUG - Reflex for shell #5 calculated
+2024-05-01 06:13:18,927 - __main__ - DEBUG - Reflex for shell #5 calculated
+2024-05-01 06:13:18,927 - __main__ - DEBUG - Reflex for shell #6 calculated
+2024-05-01 06:13:18,927 - __main__ - DEBUG - Reflex for shell #6 calculated
+2024-05-01 06:13:18,927 - __main__ - DEBUG - Reflex for shell #6 calculated
+2024-05-01 06:13:18,927 - __main__ - DEBUG - Reflex for shell #6 calculated
+2024-05-01 06:13:18,927 - __main__ - INFO - group 1: 4 shells
+2024-05-01 06:13:18,927 - __main__ - INFO - group 1: 4 shells
+2024-05-01 06:13:18,927 - __main__ - INFO - group 1: 4 shells
+2024-05-01 06:13:18,927 - __main__ - INFO - group 1: 4 shells
+2024-05-01 06:13:18,949 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2024-05-01 06:13:18,949 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2024-05-01 06:13:18,949 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2024-05-01 06:13:18,949 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2024-05-01 06:13:18,951 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 30.0
+2024-05-01 06:13:18,951 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 30.0
+2024-05-01 06:13:18,951 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 30.0
+2024-05-01 06:13:18,951 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 30.0
+2024-05-01 06:13:18,951 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 06:13:18,951 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 06:13:18,951 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 06:13:18,951 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 06:13:18,981 - __main__ - DEBUG - Calculating effective area for 4 shells...
+2024-05-01 06:13:18,981 - __main__ - DEBUG - Calculating effective area for 4 shells...
+2024-05-01 06:13:18,981 - __main__ - DEBUG - Calculating effective area for 4 shells...
+2024-05-01 06:13:18,981 - __main__ - DEBUG - Calculating effective area for 4 shells...
+2024-05-01 06:13:18,981 - __main__ - DEBUG - Reflex for shell #7 calculated
+2024-05-01 06:13:18,981 - __main__ - DEBUG - Reflex for shell #7 calculated
+2024-05-01 06:13:18,981 - __main__ - DEBUG - Reflex for shell #7 calculated
+2024-05-01 06:13:18,981 - __main__ - DEBUG - Reflex for shell #7 calculated
+2024-05-01 06:13:18,988 - __main__ - DEBUG - Reflex for shell #8 calculated
+2024-05-01 06:13:18,988 - __main__ - DEBUG - Reflex for shell #8 calculated
+2024-05-01 06:13:18,988 - __main__ - DEBUG - Reflex for shell #8 calculated
+2024-05-01 06:13:18,988 - __main__ - DEBUG - Reflex for shell #8 calculated
+2024-05-01 06:13:18,988 - __main__ - DEBUG - Reflex for shell #9 calculated
+2024-05-01 06:13:18,988 - __main__ - DEBUG - Reflex for shell #9 calculated
+2024-05-01 06:13:18,988 - __main__ - DEBUG - Reflex for shell #9 calculated
+2024-05-01 06:13:18,988 - __main__ - DEBUG - Reflex for shell #9 calculated
+2024-05-01 06:13:18,988 - __main__ - DEBUG - Reflex for shell #10 calculated
+2024-05-01 06:13:18,988 - __main__ - DEBUG - Reflex for shell #10 calculated
+2024-05-01 06:13:18,988 - __main__ - DEBUG - Reflex for shell #10 calculated
+2024-05-01 06:13:18,988 - __main__ - DEBUG - Reflex for shell #10 calculated
+2024-05-01 06:13:18,988 - __main__ - INFO - group 2: 2 shells
+2024-05-01 06:13:18,988 - __main__ - INFO - group 2: 2 shells
+2024-05-01 06:13:18,988 - __main__ - INFO - group 2: 2 shells
+2024-05-01 06:13:18,988 - __main__ - INFO - group 2: 2 shells
+2024-05-01 06:13:19,005 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2024-05-01 06:13:19,005 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2024-05-01 06:13:19,005 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2024-05-01 06:13:19,005 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2024-05-01 06:13:19,005 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 40.0
+2024-05-01 06:13:19,005 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 40.0
+2024-05-01 06:13:19,005 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 40.0
+2024-05-01 06:13:19,005 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 40.0
+2024-05-01 06:13:19,005 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 06:13:19,005 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 06:13:19,005 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 06:13:19,005 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 06:13:19,029 - __main__ - DEBUG - Calculating effective area for 2 shells...
+2024-05-01 06:13:19,029 - __main__ - DEBUG - Calculating effective area for 2 shells...
+2024-05-01 06:13:19,029 - __main__ - DEBUG - Calculating effective area for 2 shells...
+2024-05-01 06:13:19,029 - __main__ - DEBUG - Calculating effective area for 2 shells...
+2024-05-01 06:13:19,029 - __main__ - DEBUG - Reflex for shell #11 calculated
+2024-05-01 06:13:19,029 - __main__ - DEBUG - Reflex for shell #11 calculated
+2024-05-01 06:13:19,029 - __main__ - DEBUG - Reflex for shell #11 calculated
+2024-05-01 06:13:19,029 - __main__ - DEBUG - Reflex for shell #11 calculated
+2024-05-01 06:13:19,044 - __main__ - DEBUG - Reflex for shell #12 calculated
+2024-05-01 06:13:19,044 - __main__ - DEBUG - Reflex for shell #12 calculated
+2024-05-01 06:13:19,044 - __main__ - DEBUG - Reflex for shell #12 calculated
+2024-05-01 06:13:19,044 - __main__ - DEBUG - Reflex for shell #12 calculated
+2024-05-01 06:13:19,044 - __main__ - INFO - Generating plot of total area.
+2024-05-01 06:13:19,044 - __main__ - INFO - Generating plot of total area.
+2024-05-01 06:13:19,044 - __main__ - INFO - Generating plot of total area.
+2024-05-01 06:13:19,044 - __main__ - INFO - Generating plot of total area.
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 06:31:27,230 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 06:31:27,230 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 06:31:27,230 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 06:31:27,245 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 06:31:27,245 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 06:31:27,245 - __main__ - INFO - group 0: 6 shells
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 11:15:24,079 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 11:15:24,079 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 11:15:24,079 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 11:15:24,095 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 11:15:24,095 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 11:15:24,095 - __main__ - INFO - group 0: 6 shells
+2024-05-01 11:15:29,861 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 11:15:29,863 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 11:15:29,863 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 11:15:29,868 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 11:15:29,868 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 11:15:29,868 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 11:15:29,868 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 11:15:29,883 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 11:15:29,883 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 11:15:29,883 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 11:15:29,883 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 11:15:29,883 - __main__ - INFO - group 0: 6 shells
+2024-05-01 11:15:29,883 - __main__ - INFO - group 0: 6 shells
+2024-05-01 11:19:34,320 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 11:19:34,320 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 11:19:34,336 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 11:19:34,336 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 11:19:34,336 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 11:19:34,336 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 11:19:34,336 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 11:19:34,336 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 11:19:34,336 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 11:19:34,336 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 11:19:34,336 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 11:19:34,351 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 11:19:34,351 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 11:19:34,351 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 11:19:34,351 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 11:19:34,351 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 11:19:34,351 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 11:19:34,367 - __main__ - INFO - group 0: 6 shells
+2024-05-01 11:19:34,367 - __main__ - INFO - group 0: 6 shells
+2024-05-01 11:19:34,367 - __main__ - INFO - group 0: 6 shells
+2024-05-01 11:20:32,823 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 11:20:32,823 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 11:20:32,823 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 11:20:32,838 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 11:20:32,838 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 11:20:32,838 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 11:20:32,838 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 11:20:32,838 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 11:20:32,838 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 11:20:32,838 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 11:20:32,838 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 11:20:32,838 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 11:20:32,838 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 11:20:32,838 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 11:20:32,838 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 11:20:32,854 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 11:20:32,854 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 11:20:32,854 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 11:20:32,854 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 11:20:32,869 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 11:20:32,869 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 11:20:32,869 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 11:20:32,869 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 11:20:32,869 - __main__ - INFO - group 0: 6 shells
+2024-05-01 11:20:32,869 - __main__ - INFO - group 0: 6 shells
+2024-05-01 11:20:32,869 - __main__ - INFO - group 0: 6 shells
+2024-05-01 11:20:32,869 - __main__ - INFO - group 0: 6 shells
+2024-05-01 11:36:12,769 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 11:36:12,769 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 11:36:12,769 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 11:36:12,769 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 11:36:12,769 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 11:36:12,769 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 11:36:12,769 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 11:36:12,769 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 11:36:12,769 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 11:36:12,769 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 11:36:12,769 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 11:36:12,769 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 11:36:12,769 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 11:36:12,769 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 11:36:12,785 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 11:36:12,785 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 11:36:12,785 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 11:36:12,785 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 11:36:12,785 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 11:36:12,799 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 11:36:12,799 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 11:36:12,799 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 11:36:12,799 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 11:36:12,799 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 11:36:12,799 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 11:36:12,799 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 11:36:12,799 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 11:36:12,799 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 11:36:12,799 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 11:36:12,812 - __main__ - INFO - group 0: 6 shells
+2024-05-01 11:36:12,812 - __main__ - INFO - group 0: 6 shells
+2024-05-01 11:36:12,812 - __main__ - INFO - group 0: 6 shells
+2024-05-01 11:36:12,812 - __main__ - INFO - group 0: 6 shells
+2024-05-01 11:36:12,812 - __main__ - INFO - group 0: 6 shells
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 11:36:23,966 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 11:36:23,966 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 11:36:23,966 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 11:36:23,982 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 11:36:23,982 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 11:36:23,982 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:30:40,668 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 12:30:40,668 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 12:30:40,668 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 12:30:40,668 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 12:30:40,668 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 12:30:40,668 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 12:30:40,668 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 12:30:40,668 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 12:30:40,668 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 12:30:40,668 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 12:30:40,668 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 12:30:40,683 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:30:40,683 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:30:56,668 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 12:30:56,668 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 12:30:56,672 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 12:30:56,672 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 12:30:56,672 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 12:30:56,672 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 12:30:56,672 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 12:30:56,672 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 12:30:56,672 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 12:30:56,672 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 12:30:56,672 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 12:30:56,686 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 12:30:56,686 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 12:30:56,686 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 12:30:56,686 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 12:30:56,686 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 12:30:56,686 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 12:30:56,686 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:30:56,686 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:30:56,686 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:31:49,029 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 12:31:49,029 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 12:31:49,029 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 12:31:49,029 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 12:31:49,029 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 12:31:49,029 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 12:31:49,029 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 12:31:49,029 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 12:31:49,029 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 12:31:49,029 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 12:31:49,029 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 12:31:49,044 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 12:31:49,044 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 12:31:49,044 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 12:31:49,044 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 12:31:49,060 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 12:31:49,060 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 12:31:49,060 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 12:31:49,060 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 12:31:49,060 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 12:31:49,060 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 12:31:49,060 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 12:31:49,060 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 12:31:49,075 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:31:49,075 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:31:49,075 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:31:49,075 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:31:49,091 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 12:31:49,091 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 12:31:49,091 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 12:31:49,091 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 12:31:49,091 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 12:31:49,091 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 12:31:49,091 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 12:31:49,091 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 12:31:49,091 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-
+2024-05-01 12:31:49,091 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-
+2024-05-01 12:31:49,091 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-
+2024-05-01 12:31:49,091 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-
+2024-05-01 12:32:11,605 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 12:32:11,605 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 12:32:11,605 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 12:32:11,605 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 12:32:11,618 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 12:32:11,618 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 12:32:11,618 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 12:32:11,618 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 12:32:11,618 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 12:32:11,620 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 12:32:11,620 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 12:32:11,620 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 12:32:11,620 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 12:32:11,620 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 12:32:11,621 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 12:32:11,621 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 12:32:11,621 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 12:32:11,621 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 12:32:11,621 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 12:32:11,661 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 12:32:11,661 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 12:32:11,661 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 12:32:11,661 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 12:32:11,661 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 12:32:11,661 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 12:32:11,661 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 12:32:11,661 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 12:32:11,661 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 12:32:11,661 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 12:32:11,677 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:32:11,677 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:32:11,677 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:32:11,677 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:32:11,677 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:32:11,698 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 12:32:11,698 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 12:32:11,698 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 12:32:11,698 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 12:32:11,698 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 12:32:11,704 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 12:32:11,704 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 12:32:11,704 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 12:32:11,704 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 12:32:11,704 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 12:32:11,706 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-
+2024-05-01 12:32:11,706 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-
+2024-05-01 12:32:11,706 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-
+2024-05-01 12:32:11,706 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-
+2024-05-01 12:32:11,706 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-
+2024-05-01 12:32:28,700 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 12:32:28,700 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 12:32:28,700 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 12:32:28,700 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 12:32:28,700 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 12:32:28,716 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 12:32:28,716 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 12:32:28,716 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 12:32:28,716 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 12:32:28,716 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 12:32:28,716 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 12:32:28,722 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 12:32:28,722 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 12:32:28,722 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 12:32:28,722 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 12:32:28,722 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 12:32:28,722 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 12:32:28,726 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 12:32:28,726 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 12:32:28,726 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 12:32:28,726 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 12:32:28,726 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 12:32:28,726 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 12:32:28,763 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 12:32:28,763 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 12:32:28,763 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 12:32:28,763 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 12:32:28,763 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 12:32:28,763 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 12:32:28,763 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 12:32:28,763 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 12:32:28,763 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 12:32:28,763 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 12:32:28,763 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 12:32:28,763 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 12:32:28,763 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:32:28,763 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:32:28,763 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:32:28,763 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:32:28,763 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:32:28,763 - __main__ - INFO - group 0: 6 shells
+2024-05-01 12:32:28,778 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 12:32:28,778 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 12:32:28,778 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 12:32:28,778 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 12:32:28,778 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 12:32:28,778 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 12:32:28,778 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 12:32:28,778 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 12:32:28,778 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 12:32:28,778 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 12:32:28,778 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 12:32:28,778 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 12:32:28,778 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-
+2024-05-01 12:32:28,778 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-
+2024-05-01 12:32:28,778 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-
+2024-05-01 12:32:28,778 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-
+2024-05-01 12:32:28,778 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-
+2024-05-01 12:32:28,778 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 16:01:39,115 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 16:01:39,124 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 16:01:39,124 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 16:01:39,170 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 16:01:39,170 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 16:01:39,170 - __main__ - INFO - group 0: 6 shells
+2024-05-01 16:01:39,202 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 16:01:39,217 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 16:01:39,217 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-;Pt;a-
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 16:21:04,025 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 16:21:04,025 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 16:21:04,025 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 16:21:04,040 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 16:21:04,040 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 16:21:04,040 - __main__ - INFO - group 0: 6 shells
+2024-05-01 16:27:02,494 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 16:27:02,499 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 16:27:02,499 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 16:27:02,499 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 16:27:02,499 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 16:27:02,499 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 16:27:02,499 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 16:27:02,526 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 16:27:02,526 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 16:27:02,527 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 16:27:02,527 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 16:27:02,527 - __main__ - INFO - group 0: 6 shells
+2024-05-01 16:27:02,527 - __main__ - INFO - group 0: 6 shells
+2024-05-01 16:35:59,600 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 16:35:59,600 - __main__ - INFO - 
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 16:35:59,605 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 16:35:59,605 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 16:35:59,605 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 16:35:59,609 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 16:35:59,609 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 16:35:59,609 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 16:35:59,609 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 16:35:59,609 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 16:35:59,609 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 16:35:59,629 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 16:35:59,629 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 16:35:59,629 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 16:35:59,629 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 16:35:59,629 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 16:35:59,629 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 16:35:59,633 - __main__ - INFO - group 0: 6 shells
+2024-05-01 16:35:59,633 - __main__ - INFO - group 0: 6 shells
+2024-05-01 16:35:59,633 - __main__ - INFO - group 0: 6 shells
+2024-05-01 16:35:59,646 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 16:35:59,646 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 16:35:59,646 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 16:35:59,646 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 16:35:59,646 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 16:35:59,646 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 16:35:59,646 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:35:59,646 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:35:59,646 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 16:36:37,769 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 16:36:37,769 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 16:36:37,769 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 16:36:37,784 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 16:36:37,784 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 16:36:37,784 - __main__ - INFO - group 0: 6 shells
+2024-05-01 16:36:37,784 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 16:36:37,784 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 16:36:37,784 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:36:37,862 - __main__ - DEBUG - Calculating effective area for 6 shells...
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 16:49:33,310 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 16:49:33,310 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 16:49:33,310 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 16:49:33,342 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 16:49:33,342 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 16:49:33,342 - __main__ - INFO - group 0: 6 shells
+2024-05-01 16:49:33,357 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 16:49:33,357 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 16:49:33,357 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:49:33,435 - __main__ - DEBUG - Calculating effective area for 6 shells...
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 16:52:51,875 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 16:52:51,876 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 16:52:51,878 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 16:52:51,900 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 16:52:51,901 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 16:52:51,901 - __main__ - INFO - group 0: 6 shells
+2024-05-01 16:52:51,910 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 16:52:51,910 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 16:52:51,911 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:52:51,968 - __main__ - DEBUG - Calculating effective area for 6 shells...
+2024-05-01 16:52:51,972 - __main__ - DEBUG - Reflex for shell #1 calculated
+2024-05-01 16:52:51,973 - __main__ - DEBUG - Reflex for shell #2 calculated
+2024-05-01 16:52:51,974 - __main__ - DEBUG - Reflex for shell #3 calculated
+2024-05-01 16:52:51,975 - __main__ - DEBUG - Reflex for shell #4 calculated
+2024-05-01 16:52:51,976 - __main__ - DEBUG - Reflex for shell #5 calculated
+2024-05-01 16:52:51,977 - __main__ - DEBUG - Reflex for shell #6 calculated
+2024-05-01 16:52:51,980 - __main__ - INFO - group 1: 4 shells
+2024-05-01 16:52:51,995 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2024-05-01 16:52:51,996 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 30.0
+2024-05-01 16:52:51,996 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:52:52,015 - __main__ - DEBUG - Calculating effective area for 4 shells...
+2024-05-01 16:52:52,016 - __main__ - DEBUG - Reflex for shell #7 calculated
+2024-05-01 16:52:52,016 - __main__ - DEBUG - Reflex for shell #8 calculated
+2024-05-01 16:52:52,017 - __main__ - DEBUG - Reflex for shell #9 calculated
+2024-05-01 16:52:52,018 - __main__ - DEBUG - Reflex for shell #10 calculated
+2024-05-01 16:52:52,019 - __main__ - INFO - group 2: 2 shells
+2024-05-01 16:52:52,048 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2024-05-01 16:52:52,049 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 40.0
+2024-05-01 16:52:52,050 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:52:52,074 - __main__ - DEBUG - Calculating effective area for 2 shells...
+2024-05-01 16:52:52,075 - __main__ - DEBUG - Reflex for shell #11 calculated
+2024-05-01 16:52:52,076 - __main__ - DEBUG - Reflex for shell #12 calculated
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 16:53:33,824 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 16:53:33,825 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 16:53:33,825 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 16:53:33,846 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 16:53:33,846 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 16:53:33,847 - __main__ - INFO - group 0: 6 shells
+2024-05-01 16:53:33,858 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 16:53:33,859 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 16:53:33,859 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:53:33,908 - __main__ - DEBUG - Calculating effective area for 6 shells...
+2024-05-01 16:53:33,910 - __main__ - DEBUG - Reflex for shell #1 calculated
+2024-05-01 16:53:33,911 - __main__ - DEBUG - Reflex for shell #2 calculated
+2024-05-01 16:53:33,912 - __main__ - DEBUG - Reflex for shell #3 calculated
+2024-05-01 16:53:33,914 - __main__ - DEBUG - Reflex for shell #4 calculated
+2024-05-01 16:53:33,915 - __main__ - DEBUG - Reflex for shell #5 calculated
+2024-05-01 16:53:33,916 - __main__ - DEBUG - Reflex for shell #6 calculated
+2024-05-01 16:53:33,916 - __main__ - INFO - group 1: 4 shells
+2024-05-01 16:53:33,925 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2024-05-01 16:53:33,925 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 30.0
+2024-05-01 16:53:33,926 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:53:33,950 - __main__ - DEBUG - Calculating effective area for 4 shells...
+2024-05-01 16:53:33,952 - __main__ - DEBUG - Reflex for shell #7 calculated
+2024-05-01 16:53:33,953 - __main__ - DEBUG - Reflex for shell #8 calculated
+2024-05-01 16:53:33,954 - __main__ - DEBUG - Reflex for shell #9 calculated
+2024-05-01 16:53:33,955 - __main__ - DEBUG - Reflex for shell #10 calculated
+2024-05-01 16:53:33,956 - __main__ - INFO - group 2: 2 shells
+2024-05-01 16:53:33,963 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2024-05-01 16:53:33,964 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 40.0
+2024-05-01 16:53:33,965 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:53:33,986 - __main__ - DEBUG - Calculating effective area for 2 shells...
+2024-05-01 16:53:33,987 - __main__ - DEBUG - Reflex for shell #11 calculated
+2024-05-01 16:53:33,988 - __main__ - DEBUG - Reflex for shell #12 calculated
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 16:53:56,990 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 16:53:56,991 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 16:53:56,991 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 16:53:57,004 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 16:53:57,005 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 16:53:57,005 - __main__ - INFO - group 0: 6 shells
+2024-05-01 16:53:57,013 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 16:53:57,013 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 16:53:57,013 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:53:57,141 - __main__ - DEBUG - Calculating effective area for 6 shells...
+2024-05-01 16:53:57,144 - __main__ - DEBUG - Reflex for shell #1 calculated
+2024-05-01 16:53:57,145 - __main__ - DEBUG - Reflex for shell #2 calculated
+2024-05-01 16:53:57,147 - __main__ - DEBUG - Reflex for shell #3 calculated
+2024-05-01 16:53:57,150 - __main__ - DEBUG - Reflex for shell #4 calculated
+2024-05-01 16:53:57,153 - __main__ - DEBUG - Reflex for shell #5 calculated
+2024-05-01 16:53:57,155 - __main__ - DEBUG - Reflex for shell #6 calculated
+2024-05-01 16:53:57,156 - __main__ - INFO - group 1: 4 shells
+2024-05-01 16:53:57,184 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2024-05-01 16:53:57,185 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 30.0
+2024-05-01 16:53:57,186 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:53:57,277 - __main__ - DEBUG - Calculating effective area for 4 shells...
+2024-05-01 16:53:57,278 - __main__ - DEBUG - Reflex for shell #7 calculated
+2024-05-01 16:53:57,279 - __main__ - DEBUG - Reflex for shell #8 calculated
+2024-05-01 16:53:57,282 - __main__ - DEBUG - Reflex for shell #9 calculated
+2024-05-01 16:53:57,286 - __main__ - DEBUG - Reflex for shell #10 calculated
+2024-05-01 16:53:57,287 - __main__ - INFO - group 2: 2 shells
+2024-05-01 16:53:57,304 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2024-05-01 16:53:57,305 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 40.0
+2024-05-01 16:53:57,306 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:53:57,435 - __main__ - DEBUG - Calculating effective area for 2 shells...
+2024-05-01 16:53:57,437 - __main__ - DEBUG - Reflex for shell #11 calculated
+2024-05-01 16:53:57,438 - __main__ - DEBUG - Reflex for shell #12 calculated
+2024-05-01 16:53:57,439 - __main__ - INFO - Generating plot of total area.
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 16:55:00,753 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 16:55:00,753 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 16:55:00,754 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 16:55:00,765 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 16:55:00,765 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 16:55:00,766 - __main__ - INFO - group 0: 6 shells
+2024-05-01 16:55:00,772 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 16:55:00,773 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 16:55:00,773 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:55:00,812 - __main__ - DEBUG - Calculating effective area for 6 shells...
+2024-05-01 16:55:00,813 - __main__ - DEBUG - Reflex for shell #1 calculated
+2024-05-01 16:55:00,814 - __main__ - DEBUG - Reflex for shell #2 calculated
+2024-05-01 16:55:00,815 - __main__ - DEBUG - Reflex for shell #3 calculated
+2024-05-01 16:55:00,816 - __main__ - DEBUG - Reflex for shell #4 calculated
+2024-05-01 16:55:00,816 - __main__ - DEBUG - Reflex for shell #5 calculated
+2024-05-01 16:55:00,817 - __main__ - DEBUG - Reflex for shell #6 calculated
+2024-05-01 16:55:00,817 - __main__ - INFO - group 1: 4 shells
+2024-05-01 16:55:00,823 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2024-05-01 16:55:00,824 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 30.0
+2024-05-01 16:55:00,824 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:55:00,845 - __main__ - DEBUG - Calculating effective area for 4 shells...
+2024-05-01 16:55:00,847 - __main__ - DEBUG - Reflex for shell #7 calculated
+2024-05-01 16:55:00,848 - __main__ - DEBUG - Reflex for shell #8 calculated
+2024-05-01 16:55:00,849 - __main__ - DEBUG - Reflex for shell #9 calculated
+2024-05-01 16:55:00,850 - __main__ - DEBUG - Reflex for shell #10 calculated
+2024-05-01 16:55:00,850 - __main__ - INFO - group 2: 2 shells
+2024-05-01 16:55:00,856 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2024-05-01 16:55:00,857 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 40.0
+2024-05-01 16:55:00,857 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:55:00,875 - __main__ - DEBUG - Calculating effective area for 2 shells...
+2024-05-01 16:55:00,876 - __main__ - DEBUG - Reflex for shell #11 calculated
+2024-05-01 16:55:00,877 - __main__ - DEBUG - Reflex for shell #12 calculated
+2024-05-01 16:55:00,878 - __main__ - INFO - Generating plot of total area.
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 16:55:29,062 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 16:55:29,062 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 16:55:29,062 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 16:55:29,078 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 16:55:29,078 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 16:55:29,078 - __main__ - INFO - group 0: 6 shells
+2024-05-01 16:55:29,101 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 16:55:29,101 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 16:55:29,101 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:55:29,126 - __main__ - DEBUG - Calculating effective area for 6 shells...
+2024-05-01 16:55:29,126 - __main__ - DEBUG - Reflex for shell #1 calculated
+2024-05-01 16:55:29,126 - __main__ - DEBUG - Reflex for shell #2 calculated
+2024-05-01 16:55:29,126 - __main__ - DEBUG - Reflex for shell #3 calculated
+2024-05-01 16:55:29,126 - __main__ - DEBUG - Reflex for shell #4 calculated
+2024-05-01 16:55:29,141 - __main__ - DEBUG - Reflex for shell #5 calculated
+2024-05-01 16:55:29,141 - __main__ - DEBUG - Reflex for shell #6 calculated
+2024-05-01 16:55:29,141 - __main__ - INFO - group 1: 4 shells
+2024-05-01 16:55:29,143 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2024-05-01 16:55:29,149 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 30.0
+2024-05-01 16:55:29,149 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:55:29,173 - __main__ - DEBUG - Calculating effective area for 4 shells...
+2024-05-01 16:55:29,177 - __main__ - DEBUG - Reflex for shell #7 calculated
+2024-05-01 16:55:29,177 - __main__ - DEBUG - Reflex for shell #8 calculated
+2024-05-01 16:55:29,177 - __main__ - DEBUG - Reflex for shell #9 calculated
+2024-05-01 16:55:29,177 - __main__ - DEBUG - Reflex for shell #10 calculated
+2024-05-01 16:55:29,177 - __main__ - INFO - group 2: 2 shells
+2024-05-01 16:55:29,186 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2024-05-01 16:55:29,186 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 40.0
+2024-05-01 16:55:29,186 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:55:29,205 - __main__ - DEBUG - Calculating effective area for 2 shells...
+2024-05-01 16:55:29,205 - __main__ - DEBUG - Reflex for shell #11 calculated
+2024-05-01 16:55:29,205 - __main__ - DEBUG - Reflex for shell #12 calculated
+2024-05-01 16:55:29,205 - __main__ - INFO - Generating plot of total area.
+
+%------------------------------
+logging started on G:\My Drive\progetti\POOL\coating_opt\fortran\EA\EAlog.txt
+2024-05-01 16:55:46,103 - __main__ - DEBUG - program call:
+EA.py Project00 [coating1.dat,coating2.dat,coating3.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+2024-05-01 16:55:46,103 - __main__ - DEBUG - arguments:
+configFolder: Project00
+coatingList: [coating1.dat,coating2.dat,coating3.dat]
+groupList: [[1,2,3,4,5,6],[7,8,9,10],[11,12]]
+energyRange: [1.,10.,20]
+2024-05-01 16:55:46,103 - __main__ - INFO - Read geometry from file: shellStruct_start.txt in configFolder=Project00
+2024-05-01 16:55:46,124 - __main__ - DEBUG - Angles range(rad) 0.001931 -- 0.004887, Acoll range(cm^2) 2.810077 -- 18.006919
+
+2024-05-01 16:55:46,124 - __main__ - INFO - Calculating effective area for 3 groups
+2024-05-01 16:55:46,125 - __main__ - INFO - group 0: 6 shells
+2024-05-01 16:55:46,133 - __main__ - DEBUG - Roughness first and last layer: 3.0 ; 3.0
+2024-05-01 16:55:46,133 - __main__ - DEBUG - Min and max dspacing: 0 -- 20
+2024-05-01 16:55:46,133 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:55:46,180 - __main__ - DEBUG - Calculating effective area for 6 shells...
+2024-05-01 16:55:46,182 - __main__ - DEBUG - Reflex for shell #1 calculated
+2024-05-01 16:55:46,182 - __main__ - DEBUG - Reflex for shell #2 calculated
+2024-05-01 16:55:46,182 - __main__ - DEBUG - Reflex for shell #3 calculated
+2024-05-01 16:55:46,182 - __main__ - DEBUG - Reflex for shell #4 calculated
+2024-05-01 16:55:46,182 - __main__ - DEBUG - Reflex for shell #5 calculated
+2024-05-01 16:55:46,182 - __main__ - DEBUG - Reflex for shell #6 calculated
+2024-05-01 16:55:46,182 - __main__ - INFO - group 1: 4 shells
+2024-05-01 16:55:46,189 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2024-05-01 16:55:46,189 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 30.0
+2024-05-01 16:55:46,189 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:55:46,213 - __main__ - DEBUG - Calculating effective area for 4 shells...
+2024-05-01 16:55:46,214 - __main__ - DEBUG - Reflex for shell #7 calculated
+2024-05-01 16:55:46,214 - __main__ - DEBUG - Reflex for shell #8 calculated
+2024-05-01 16:55:46,214 - __main__ - DEBUG - Reflex for shell #9 calculated
+2024-05-01 16:55:46,217 - __main__ - DEBUG - Reflex for shell #10 calculated
+2024-05-01 16:55:46,217 - __main__ - INFO - group 2: 2 shells
+2024-05-01 16:55:46,225 - __main__ - DEBUG - Roughness first and last layer: 0.0 ; 0.0
+2024-05-01 16:55:46,225 - __main__ - DEBUG - Min and max dspacing: 0.0 -- 40.0
+2024-05-01 16:55:46,225 - __main__ - DEBUG - loading refraction indices for materials: a-Si;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C;Pt;a-C
+2024-05-01 16:55:46,241 - __main__ - DEBUG - Calculating effective area for 2 shells...
+2024-05-01 16:55:46,241 - __main__ - DEBUG - Reflex for shell #11 calculated
+2024-05-01 16:55:46,241 - __main__ - DEBUG - Reflex for shell #12 calculated
+2024-05-01 16:55:46,241 - __main__ - INFO - Generating plot of total area.

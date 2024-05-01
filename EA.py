@@ -47,10 +47,10 @@ Format of geometry and coating file
 ----------
 ----------
 COATING:
-describes layers in format:
+describes layers in format (Roughness column is optional, assumed 0 if not present):
 ex:
-Thickness(A)	Material
-0	a-Si
+Thickness(A)	Material    Roughness(A)
+0	a-Si    3.0
 ..
 from substrate (thickness 0) to top layer. Material is a string indicating a file
 with optical constants, corresponding DABAX format (text file with extension .nk) 
@@ -81,6 +81,10 @@ For each group:
 # - test results for correct values
 # - separare routine di plot (in modo da poter chiamare solo quella 
 #   quando si vogliono cambiare i parametri di plot.
+
+# Changes
+# ----------
+# 2024/05/01 Added roughness col, was assumed 0.
 
 # 2018/04/29 copied from old backup MacriumReflect Disco_E:\work\WWDesign\web_app\EA.py (v1.4) 
 # start v1.5 with pandas for use in google sheets
@@ -145,40 +149,17 @@ For each group:
 import sys
 import os
 import logging
-
+import argparse
 
 from astropy.io import ascii as asciitable
 
-from pylab import * #equivalent to the 3 aboce, matplotlib must be installed.
+import numpy as np
+from matplotlib import pyplot as plt
 from scipy.interpolate.interpolate import interp1d
-from internal_data.fortran_lib import reflexf90
 import ast 
-'''
-from itertools import cycle
-lines = ["-","--","-.",":"]
-linecycler = cycle(lines)
-plt.figure()
-for i in range(10):
-    x = range(i,i+10)
-    plt.plot(range(10),x,next(linecycler))
-plt.show()
 
-linestyles = ['_', '-', '--', ':']
-markers = []
-for m in Line2D.markers:
-    try:
-        if len(m) == 1 and m != ' ':
-            markers.append(m)
-    except TypeError:
-        pass
 
-styles = markers + [
-    r'$\lambda$',
-    r'$\bowtie$',
-    r'$\circlearrowleft$',
-    r'$\clubsuit$',
-    r'$\checkmark$']
-'''
+#from internal_data.fortran_lib import reflexf90
 
 
 def strExtractArray(string, checkNumeric=False):
@@ -209,8 +190,8 @@ def load_ri(materialsList):
     Values are 1d interpolators'''
     
     matDic={}
-    for material in unique(materialsList):
-        table=loadtxt(os.path.join(nkdir,material+'.nk'),comments=';')
+    for material in np.unique(materialsList):
+        table=np.loadtxt(os.path.join(nkdir,material+'.nk'),comments=';')
         '''table is a n x 3 array with lambda, n and k.
         the result of interp1d is a function that 
         extract the interpolated rs2 at energy ener.'''
@@ -219,7 +200,7 @@ def load_ri(materialsList):
         logging.debug('energy range: %s : %s'%(min(en),max(en)))
         n=table[-1:0:-1,1]
         k=table[-1:0:-1,2]
-        matDic[material]=interp1d(en,vstack((n,k)))
+        matDic[material]=interp1d(en,np.vstack((n,k)))
 
     return matDic
 
@@ -237,25 +218,22 @@ def set_logger(logger):
     """set properties of a logger creating a new one if doesn't exist.
     If existing, must have no handlers or two handlers file and console."""
     
-    ## logger
     '''
     logging setup, remember the sequence below:
     DEBUG, INFO, WARNING, ERROR, CRITICAL
     '''
+    
      # add the handlers to logger, the condition is useful if you launch repeatly the script from interpreter (avoid multiple messages)
     ##2018/01/16 still doesn't work if there are file errors and only one handler is
     ## created (console, not file), it files when it tries to close two handlers.   
     logger.setLevel(logging.DEBUG)
     # create file and console handlers which log even debug messages
     if len(logging.root.handlers) == 0:
-
         # create console handler with a higher log level
-        
         fh = logging.FileHandler(logfile)        #logging.basicConfig(format='%(asctime)s %(name)-12s  
         logger.addHandler(fh)       
         ch = logging.StreamHandler()
         logger.addHandler(ch)
-     
         logger.info("\n%"+15*"--"+"\nlogging started on "+logfile)
     else:
         fh,ch=logging.root.handlers
@@ -267,41 +245,77 @@ def set_logger(logger):
     fh.setFormatter(formatter)
     return logger   
     
-if __name__=="__main__":
-    '''three routines with different evolutions of the command line syntax.
-    Example of the command line syntax is in the comment of each routine.'''
-
-    def loadArgs():
-        #load variables with command line arguments 
-        # EA.py Configfolder ['coating1.xml','coating2.xml','coating3.xml'] [[1,10,1],[11,20,2],[21,31,2]] [1.,80.,80]
-        configFolder=sys.argv[1]    
-        coatinglist=sys.argv[2]
-        grouplist=ast.literal_eval(sys.argv[3])
-        enerstart,enerend,npoints=strExtractArray(sys.argv[4],checkNumeric=True)
-        ener=arange(enerstart,enerend,npoints)
-        return [configFolder,coatinglist,grouplist,ener]
+def calc_reflex(d_spacing, ener, angle, rough, rs2, re2, ro2):
     
-    def loadArgs2():
-        # EA.py Configfolder ['coating1.xml','coating2.xml','coating3.xml'] [1,2,2,3] [[1,2,3,4,5],[6,7,8,9],[10,11,12,13],[14,15]] [1.,80.,80]
-        logging.debug('%s called with parameters:'%(sys.argv[0],sys.argc[1:]))
-        configFolder=sys.argv[1]    
-        coatinglist=sys.argv[2]
-        coatIndexlist=strExtractArray(sys.argv[3])
-        grouplist=ast.literal_eval(sys.argv[4])
-        enerstart,enerend,npoints=strExtractArray(sys.argv[5],checkNumeric=True)
-        ener=arange(enerstart,enerend,npoints)        
-        return [configFolder,coatinglist,coatindexlist,grouplist,ener]
+    #call fortran routine for reflectivity calculation.
+    #reflex=reflexf90.reflexmod.reflex(dspacing,ener,angles[ishell-1],roughness[0],rs2,re2,ro2)
 
-    def loadArgs3():
-        # EA.py Project00 [coating001.dat,coating002.dat,coating003.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
-        logger.debug('program call:\n%s'%'\s'.join(sys.argv))
-        logger.debug('arguments:\n%s'%'\n'.join(sys.argv))
-        configFolder=sys.argv[1]    
-        coatinglist=strExtractArray(sys.argv[2])
-        grouplist=ast.literal_eval(sys.argv[3])
-        enerstart,enerend,npoints=strExtractArray(sys.argv[4],checkNumeric=True)
-        ener=arange(float(enerstart),float(enerend),(float(enerend)-float(enerstart))/long(npoints))        
-        return [configFolder,coatinglist,grouplist,ener]    
+    n_layers = len(d_spacing)
+    if n_layers % 2 != 0: logging.error('number of layers must be even!')
+    
+    n_bilayers = n_layers // 2
+    de = d_spacing[::2][:n_bilayers]
+    do = d_spacing[1::2][:n_bilayers]
+
+    # Constants
+    pi = np.pi
+    h_c = 12.39841857
+    r_l = h_c / ener  # Array of lambda values
+
+    coseno = np.cos(angle)
+    seno = np.sin(angle)
+    refv = np.abs(seno)
+    fv = refv + 1j * 0  # Convert to complex
+    
+    # Calculate factors that depend on energy
+    fo = np.sqrt(ro2 - coseno ** 2)
+    fe = np.sqrt(re2 - coseno ** 2)
+    fs = np.sqrt(rs2 - coseno ** 2)
+    
+    ffe = (fe - fo) / (fe + fo)
+    ffo = -ffe
+    ffs = (fe - fs) / (fe + fs)
+    
+    # Roughness calculations
+    sigma = rough ** 2
+    prefact = 2 * ((2 * pi) / r_l) ** 2
+    arg_e = fo * fe * sigma
+    arg_o = fo * fe * sigma
+    arg_v = fo * seno * sigma
+    arg_s = fe * fs * sigma
+
+    fnevot_e = np.exp(-prefact * arg_e)
+    fnevot_o = np.exp(-prefact * arg_o)
+    fnevot_v = np.exp(-prefact * arg_v)
+    fnevot_s = np.exp(-prefact * arg_s)
+
+    FcostO = ffe * fnevot_o
+    FcostE = ffo * fnevot_e
+    costO = -4 * 1j * pi * fo / r_l
+    costE = -4 * 1j * pi * fe / r_l
+
+    # Initialize r
+    r = np.zeros_like(ener, dtype=complex)
+    
+    # Apply coating layers
+    for t in range(n_bilayers):
+        ao = np.exp(costO * do[t])
+        ae = np.exp(costE * de[t])
+        r = ae * (r + FcostO) / (r * FcostO + 1)
+        r += ao * (r + FcostE) / (r * FcostE + 1)
+
+    ffv = (fv - fo) / (fv + fo)
+    r = (r + ffv * fnevot_v) / (r * ffv * fnevot_v + 1)
+
+    ref = np.abs(r) ** 2  # Reflectivity calculation
+
+    return ref
+    
+    
+    return reflex
+
+
+if __name__=="__main__":
         
     def loadArgs4():
         # EA.py Project00 [coating001.dat,coating002.dat,coating003.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
@@ -331,14 +345,7 @@ if __name__=="__main__":
         
         return [args.configFolder, coatinglist, grouplist, ener]
                 
-    ##--------------------------
-    # argparse
-
-
     folder=os.path.dirname(os.path.abspath(sys.argv[1]))  #project name
-    #print(folder)
-    #print(sys.argv[0])
-    #print(sys.argv)
     
     ## prepare data structures and settings
     libdir=os.path.join(folder,'internal_data')  #useful ?
@@ -348,7 +355,6 @@ if __name__=="__main__":
     logfile=os.path.join(folder,'EAlog.txt')
     
     #set system
-    #h_c=reflexf90.reflexmod.h_c   #import constant, useless, can be set in python 
     h_c=12.39841857 
     linestyles=[ '-',':','-.','--']
     colors="bgrcmyk"
@@ -356,45 +362,63 @@ if __name__=="__main__":
     logger = logging.getLogger(__name__)
     logger = set_logger(logger)     
     
-    ## translate the command line arguments in variable initialization.
-    #CONFIGFOLDER is the folder on the server containing data for a configuration
-    #(named with the name of the project),
-    #COATINGLIST is the list of filenames for all used coatings,
-    #for each coating, the element of GROUPLIST in the corresponding position is the list 
-    #of the shells numbers using the given coating.
+    ## translate the command line arguments into variables.
+    #CONFIGFOLDER: folder on the server containing data for a configuration (name of the project),
+    #COATINGLIST: list of filenames for all used coatings,
+    # for each coating, the element of GROUPLIST in the corresponding position is the list 
+    # of the shells numbers using the given coating.
     # ex:
     #['coating001.dat','coating002.dat','coating003.dat'] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
-    configFolder,coatinglist,grouplist,ener=loadArgs4()  # 2024/05/01 not tested with 4, was loadArgs3
-    
     #N.B.: coating must be repeatable to allow the calculation of different geometrical groups with
     #same coating.
-    #------------------------------------------------------------------------
-    #read list of angles and area, column are recognized by the column label,
-    #assuming an EXACT syntax and no spaces for the single field
-    #(not very user friendly).
+    
+    configFolder,coatinglist,grouplist,ener=loadArgs4()  
+    
+    ## read list of angles and area, column are recognized by the column label,
+    # assuming an EXACT syntax and no spaces for the single field (not very user friendly).
     
     angles,shellAcoll=read_geometry(configFolder, shellStructFile)
     
-    #def EffectiveArea(configFolder,coatinglist,grouplist,ener):
     ## calculate output
+    #def EffectiveArea(configFolder,coatinglist,grouplist,ener):
     logger.info('Calculating effective area for %s groups'%len(grouplist))
+    
     areatot=[]
     for i,(coatingFile,group) in enumerate(zip(coatinglist,grouplist)):
         logger.info('group %s: %s shells'%(i,len(group)))
-        #*legge il file del coating e imposta gli spessori,
-        coating=asciitable.read(os.path.join(configFolder,coatingFile))
+        
+        '''
+        coating=asciitable.read(os.path.join(configFolder,coatingFile)) #*legge il file del coating e imposta gli spessori
+        
         #header:
         #Thickness(A)    Material    Roughness(A)
-        materials=coating["Material"]
-        dspacing=coating["Thickness(A)"]
-        roughness=dspacing*0 #coating.["Roughness(A)"]
+        materials = coating["Material"]
+        dspacing = coating["Thickness(A)"]
+        roughness = coating.get("Roughness(A)", dspacing*0)   
+        '''
+        
+        import numpy as np
+
+        # Read the CSV file
+        coat_file = os.path.join(configFolder,coatingFile)
+        data = np.genfromtxt(coat_file, delimiter='', names=True, dtype=None, encoding='utf-8')
+        coating = {name: data[name] for name in data.dtype.names}
+        
+        #header:
+        #Thickness(A)    Material    Roughness(A)
+        materials = coating["Material"]
+        dspacing = coating["ThicknessA"]
+        roughness = coating.get("RoughnessA", dspacing*0)   
+
         logger.debug('Roughness first and last layer: %s ; %s'%(roughness[0],roughness[-1]))
         logger.debug('Min and max dspacing: %s -- %s'%(min(dspacing),max(dspacing)))
+        
         #read refraction indices from file
         logger.debug('loading refraction indices for materials: %s'%";".join(materials))
         riDic=load_ri(materials)
         logger.debug("Calculating effective area for %s shells..."%len(group))
         areagroup=ener*0
+        
         for ishell in group:
             #calculate reflex
             #consider only first 3 materials.
@@ -404,43 +428,70 @@ if __name__=="__main__":
             re2=(re2[0,:] - 1j * re2[1,:])**2
             ro2=riDic[materials[2]](ener)
             ro2=(ro2[0,:] - 1j * ro2[1,:])**2
+            
             #call fortran routine for reflectivity calculation.
-            reflex=reflexf90.reflexmod.reflex(dspacing,ener,angles[ishell-1],roughness[0],rs2,re2,ro2)
+            #reflex=reflexf90.reflexmod.reflex(dspacing,ener,angles[ishell-1],roughness[0],rs2,re2,ro2)
+            reflex = calc_reflex(dspacing,ener,angles[ishell-1],roughness[0],rs2,re2,ro2) 
             logger.debug("Reflex for shell #%s calculated"%ishell)
-#            reflex=reflexf90.reflexmod.reflexcore(dspacing,ener,angles[ishell-1],roughness,rs2,re2,ro2)
+            
             #*scrivi parziale gruppo (scrivi parziale di ogni shell?)
             areagroup=areagroup+shellAcoll[ishell-1]*reflex**2
-            #areatot=areatot+shellAcoll[ishell-1]*reflex**2
+            
         areatot.append(areagroup)
-    areatot=array(areatot)
-    areatot=row_stack((areatot,sum(areatot,axis=0)))
-    areatot=areatot.transpose()
     
+    areatot=np.array(areatot)
+    areatot=np.row_stack((areatot,np.sum(areatot,axis=0))).transpose()    
     
-    #crea plot e immagine
-    #clf()
+    #save .png and .svg plots
     logger.info("Generating plot of total area.")
-    figure()
-    clf()
-    p=plot(ener,areatot) #,title=configFolder+' Area' #,xlabel='Energy(keV)',ylabel='Effective area (cm$^2$)')
-    grid(True)
-    title(configFolder)
-    xlabel('Energy (keV)')
-    for l, ls in zip(p,[linestyles[i] for i in arange(len(p))%len(linestyles)]):l.set_linestyle(ls)
+    plt.figure()
+    plt.clf()
+    p=plt.plot(ener,areatot) #,title=configFolder+' Area' #,xlabel='Energy(keV)',ylabel='Effective area (cm$^2$)')
+    plt.grid(True)
+    plt.title(configFolder)
+    plt.xlabel('Energy (keV)')
+    for l, ls in zip(p,[linestyles[i] for i in np.arange(len(p))%len(linestyles)]):l.set_linestyle(ls)
     legstr=map('Group '.__add__,map(str,range(1,len(grouplist)+1)))
-    legend(legstr)
-    ylabel('Effective Area (cm$^2$)')
-    rc("axes", labelsize=10, titlesize=10)
-    rc("xtick", labelsize=10)
-    rc("ytick", labelsize=10)
-    rc("font", size=10)
-    rc("legend", fontsize=10)
-    savefig(os.path.join(configFolder,'Effective_area_total.png'))
-    savefig(os.path.join(configFolder,'Effective_area_total.svg'))    
+    plt.legend(legstr)
+    plt.ylabel('Effective Area (cm$^2$)')
+    plt.rc("axes", labelsize=10, titlesize=10)
+    plt.rc("xtick", labelsize=10)
+    plt.rc("ytick", labelsize=10)
+    plt.rc("font", size=10)
+    plt.rc("legend", fontsize=10)
+    plt.savefig(os.path.join(configFolder,'Effective_area_total.png'))
+    plt.savefig(os.path.join(configFolder,'Effective_area_total.svg'))    
+    
     #savetxt(os.path.join(configFolder,'Effective_area.txt'),areatot)
     f=open(os.path.join(configFolder,'Effective_area_total.dat'),'w')
     f.write('#Energy(keV)\tAeff(cm^2)_for_'+'\t'.join(legstr)+'\tTotal\n')
-    outarr=concatenate((expand_dims(ener,-1),areatot),axis=1)
+    outarr=np.concatenate((np.expand_dims(ener,-1),areatot),axis=1)
     f.writelines('\t'.join(str(j) for j in i)+'\n' for i in outarr)
     f.close()
     
+'''
+from itertools import cycle
+lines = ["-","--","-.",":"]
+linecycler = cycle(lines)
+plt.figure()
+for i in range(10):
+    x = range(i,i+10)
+    plt.plot(range(10),x,next(linecycler))
+plt.show()
+
+linestyles = ['_', '-', '--', ':']
+markers = []
+for m in Line2D.markers:
+    try:
+        if len(m) == 1 and m != ' ':
+            markers.append(m)
+    except TypeError:
+        pass
+
+styles = markers + [
+    r'$\lambda$',
+    r'$\bowtie$',
+    r'$\circlearrowleft$',
+    r'$\clubsuit$',
+    r'$\checkmark$']
+'''

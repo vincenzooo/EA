@@ -145,11 +145,10 @@ For each group:
 import sys
 import os
 import logging
-#import asciitable
+
+
 from astropy.io import ascii as asciitable
-#from numpy import *
-#from scipy import *
-#from matplotlib import *
+
 from pylab import * #equivalent to the 3 aboce, matplotlib must be installed.
 from scipy.interpolate.interpolate import interp1d
 from internal_data.fortran_lib import reflexf90
@@ -225,7 +224,7 @@ def load_ri(materialsList):
     return matDic
 
 def read_geometry(configFolder,shellStructFile):
-    """ read geometry from file"""
+    """ read geometry from file. angles and acoll are identified by column headers, respectively 'Angle(rad)' and 'Area(cm^2)' """
     logger.info('Read geometry from file: %s in configFolder=%s'%(shellStructFile,configFolder))
     geo=asciitable.read(os.path.join(configFolder,shellStructFile))
     angles=geo['Angle(rad)']
@@ -235,7 +234,7 @@ def read_geometry(configFolder,shellStructFile):
     return  angles, shellAcoll
    
 def set_logger(logger):
-    """set properties of a logger creating a new one if doesn;t exist.
+    """set properties of a logger creating a new one if doesn't exist.
     If existing, must have no handlers or two handlers file and console."""
     
     ## logger
@@ -306,96 +305,35 @@ if __name__=="__main__":
         
     def loadArgs4():
         # EA.py Project00 [coating001.dat,coating002.dat,coating003.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
-        """just a copy of 3, built to use argparser and get rid of the eval.
-        """
+        """same interface as loadArgs3, uses argparser and get rid of the eval, code by chatGPT.  """
         
-        logger.debug('program call:\n%s'%'\s'.join(sys.argv))
-        logger.debug('arguments:\n%s'%'\n'.join(sys.argv))
-        configFolder=sys.argv[1]    
-        coatinglist=strExtractArray(sys.argv[2])
-        grouplist=ast.literal_eval(sys.argv[3])
-        enerstart,enerend,npoints=strExtractArray(sys.argv[4],checkNumeric=True)
-        ener=arange(float(enerstart),float(enerend),(float(enerend)-float(enerstart))/long(npoints))        
-        return [configFolder,coatinglist,grouplist,ener]    
+        parser = argparse.ArgumentParser(description="Process input arguments for the project.")
+        
+        # Add arguments to the parser
+        parser.add_argument('configFolder', type=str, help='Configuration folder path')
+        parser.add_argument('coatingList', type=str, help='List of coating data files')
+        parser.add_argument('groupList', type=str, help='Nested list of group IDs')
+        parser.add_argument('energyRange', type=str, help='Energy range and number of points')
+        
+        # Parse arguments
+        args = parser.parse_args()
+        
+        # Log the program call and arguments
+        logger.debug('program call:\n{}'.format(' '.join(sys.argv)))
+        logger.debug('arguments:\nconfigFolder: {}\ncoatingList: {}\ngroupList: {}\nenergyRange: {}'.format(
+            args.configFolder, args.coatingList, args.groupList, args.energyRange))
+        
+        # Process arguments
+        coatinglist = strExtractArray(args.coatingList)
+        grouplist = ast.literal_eval(args.groupList)
+        enerstart, enerend, npoints = strExtractArray(args.energyRange, checkNumeric=True)
+        ener = np.arange(float(enerstart), float(enerend), (float(enerend) - float(enerstart)) / int(npoints))
+        
+        return [args.configFolder, coatinglist, grouplist, ener]
                 
     ##--------------------------
     # argparse
-    """
-    parser = argparse.ArgumentParser(description='''Calculate effective area''')
 
-
-    parser.add_argument('outname', type=str, default='', nargs='?', 
-                        help='name for output folder.')  
-      
-    parser.add_argument('step', type=int, nargs='*', 
-                        help='integer 01-04 indicating which step to execute.')
-        
-
-
-    parser.add_argument('--include', action='store',
-                        help='exclude all others from execution, override config.')
-
-    #gives None if not added, "" if --config with no following value.
-    parser.add_argument('--config', action='store', type=str,
-                        default=None,const="",nargs='?',
-                        help='start from a different configuration.')
-
-    parser.add_argument('--clean', action='store_true', help='clear results folder before execution. safely reproduce config in output.')
-
-    parser.add_argument('--chain', action='store_true', help='if multiple steps are selected, start each one with automatically generated config, rather than with default one.')
-                        
-    args = parser.parse_args()
-
-    args.step = args.step[0]  #temporary patch to accept multiple steps, not implemented yet
-    print (args)
-
-    ##--------------------------
-
-    #a list of functions with interface pipelinexx(outfolder,jfile=default_conf[xx])
-    step_func=[pipeline01,pipeline02,pipeline03,pipeline04]
-    default_conf=['01_register_config.json','02_calibrate_config.json','03_psd_config.json','04_psdplot_config.json']
-
-    #    interactive file select for single json or list of data if .config is None, 
-    #  use .config = "" (or cancel) for default config file 
-     
-    if args.config is None:
-        import tkinter as tk
-        from tkinter import filedialog
-        
-        root = tk.Tk()
-        root.lift()
-        root.focus_force()
-        root.withdraw()
-        
-        file_path = filedialog.askopenfilenames(parent=root)
-        #root.withdraw()
-        root.destroy()
-        print (file_path)
-        if len(file_path) == 1:
-            if os.path.splitext(file_path[0])[-1] == ".json":
-                args.config=file_path[0]  #json file
-            else:
-                files=file_path
-        else: #list of data files
-            files=file_path  #.config remains set to None
-
-
-
-    #select default functions and jfile
-    pip_func = step_func[args.step-1]
-    if args.config:    #args config set to "",  None was already addressed above
-        jfile=args.config
-    else:
-        if np.size(args.step)>1:  #implement chain.
-            raise NotImplementedError
-        else:
-            jfile=default_conf[args.step-1]
-
-    #run it    
-    res=pip_func(args.outname,jfile=jfile)
-    beep()   
-    """ 
-    """---"""    
 
     folder=os.path.dirname(os.path.abspath(sys.argv[1]))  #project name
     #print(folder)
@@ -426,7 +364,7 @@ if __name__=="__main__":
     #of the shells numbers using the given coating.
     # ex:
     #['coating001.dat','coating002.dat','coating003.dat'] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
-    configFolder,coatinglist,grouplist,ener=loadArgs3()
+    configFolder,coatinglist,grouplist,ener=loadArgs4()  # 2024/05/01 not tested with 4, was loadArgs3
     
     #N.B.: coating must be repeatable to allow the calculation of different geometrical groups with
     #same coating.

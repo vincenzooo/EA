@@ -213,40 +213,9 @@ def read_geometry(configFolder,shellStructFile):
     logger.debug('Angles range(rad) %s -- %s, Acoll range(cm^2) %s -- %s\n'%(min(angles),max(angles),min(shellAcoll),max(shellAcoll)))
     #read angles and area from shellstruct_start.  
     return  angles, shellAcoll
-   
-def set_logger(logger):
-    """set properties of a logger creating a new one if doesn't exist.
-    If existing, must have no handlers or two handlers file and console."""
-    
-    '''
-    logging setup, remember the sequence below:
-    DEBUG, INFO, WARNING, ERROR, CRITICAL
-    '''
-    
-     # add the handlers to logger, the condition is useful if you launch repeatly the script from interpreter (avoid multiple messages)
-    ##2018/01/16 still doesn't work if there are file errors and only one handler is
-    ## created (console, not file), it files when it tries to close two handlers.   
-    logger.setLevel(logging.DEBUG)
-    # create file and console handlers which log even debug messages
-    if len(logging.root.handlers) == 0:
-        # create console handler with a higher log level
-        fh = logging.FileHandler(logfile)        #logging.basicConfig(format='%(asctime)s %(name)-12s  
-        logger.addHandler(fh)       
-        ch = logging.StreamHandler()
-        logger.addHandler(ch)
-        logger.info("\n%"+15*"--"+"\nlogging started on "+logfile)
-    else:
-        fh,ch=logging.root.handlers
-    fh.setLevel(logging.DEBUG)
-    ch.setLevel(logging.INFO)
-    # create formatter and add it to the handlers
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    ch.setFormatter(formatter)
-    fh.setFormatter(formatter)
-    return logger   
     
 def calc_reflex(d_spacing, ener, angle, rough, rs2, re2, ro2):
-    
+
     #call fortran routine for reflectivity calculation.
     #reflex=reflexf90.reflexmod.reflex(dspacing,ener,angles[ishell-1],roughness[0],rs2,re2,ro2)
 
@@ -311,9 +280,80 @@ def calc_reflex(d_spacing, ener, angle, rough, rs2, re2, ro2):
 
     return ref
     
-    
-    return reflex
+def ML_reflex(d_spacing, ener, angle, rough, indices):
 
+    
+    # This is IMD layer data format, note that Substrate is not specified. Layers go from topmost to bottom.
+    # ;   
+    # ;  IMD Layer Data File
+    # ;   
+    # ;  Index Material Thickness [A] Roughness [A] Interface Gr. Int. Layers Gr. Int. Width [A] Gr. Int. Distribution [%]
+    #     1	a-C	       25.000000	      0.00000000	       0	       0	      0.00000000	      0.00000000
+    #     2	Ir	       300.00000	      0.00000000	       0	       0	      0.00000000	      0.00000000
+    
+    #call fortran routine for reflectivity calculation.
+    #reflex=reflexf90.reflexmod.reflex(dspacing,ener,angles[ishell-1],roughness[0],rs2,re2,ro2)
+
+    n_layers = len(d_spacing)
+    if n_layers % 2 != 0: logging.error('number of layers must be even!')
+    
+    n_bilayers = n_layers // 2
+    de = d_spacing[::2][:n_bilayers]
+    do = d_spacing[1::2][:n_bilayers]
+
+    # Constants
+    pi = np.pi
+    h_c = 12.39841857
+    r_l = h_c / ener  # Array of lambda values
+
+    coseno = np.cos(angle)
+    seno = np.sin(angle)
+    refv = np.abs(seno)
+    fv = refv + 1j * 0  # Convert to complex
+    
+    # Calculate factors that depend on energy
+    fo = np.sqrt(ro2 - coseno ** 2)
+    fe = np.sqrt(re2 - coseno ** 2)
+    fs = np.sqrt(rs2 - coseno ** 2)
+    
+    ffe = (fe - fo) / (fe + fo)
+    ffo = -ffe
+    ffs = (fe - fs) / (fe + fs)
+    
+    # Roughness calculations
+    sigma = rough ** 2
+    prefact = 2 * ((2 * pi) / r_l) ** 2
+    arg_e = fo * fe * sigma
+    arg_o = fo * fe * sigma
+    arg_v = fo * seno * sigma
+    arg_s = fe * fs * sigma
+
+    fnevot_e = np.exp(-prefact * arg_e)
+    fnevot_o = np.exp(-prefact * arg_o)
+    fnevot_v = np.exp(-prefact * arg_v)
+    fnevot_s = np.exp(-prefact * arg_s)
+
+    FcostO = ffe * fnevot_o
+    FcostE = ffo * fnevot_e
+    costO = -4 * 1j * pi * fo / r_l
+    costE = -4 * 1j * pi * fe / r_l
+
+    # Initialize r
+    r = np.zeros_like(ener, dtype=complex)
+    
+    # Apply coating layers
+    for t in range(n_bilayers):
+        ao = np.exp(costO * do[t])
+        ae = np.exp(costE * de[t])
+        r = ae * (r + FcostO) / (r * FcostO + 1)
+        r += ao * (r + FcostE) / (r * FcostE + 1)
+
+    ffv = (fv - fo) / (fv + fo)
+    r = (r + ffv * fnevot_v) / (r * ffv * fnevot_v + 1)
+
+    ref = np.abs(r) ** 2  # Reflectivity calculation
+
+    return ref
 
 if __name__=="__main__":
         
@@ -331,6 +371,7 @@ if __name__=="__main__":
         
         # Parse arguments
         args = parser.parse_args()
+        print("args:",args)
         
         # Log the program call and arguments
         logger.debug('program call:\n{}'.format(' '.join(sys.argv)))
@@ -360,7 +401,10 @@ if __name__=="__main__":
     colors="bgrcmyk"
     os.chdir(folder)
     logger = logging.getLogger(__name__)
-    logger = set_logger(logger)     
+    #from logs import set_logger #2016/01/10 moved from EA.py
+    #logger = set_logger(logger)     
+    from dataIO.logs import start_logger, reset_logger
+    logger = start_logger(logger)
     
     ## translate the command line arguments into variables.
     #CONFIGFOLDER: folder on the server containing data for a configuration (name of the project),

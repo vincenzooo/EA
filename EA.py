@@ -216,6 +216,57 @@ def read_geometry(configFolder,shellStructFile):
     
 def calc_reflex(d_spacing, ener, angle, rough, rs2, re2, ro2):
 
+    """
+    Compute the specular X-ray reflectivity of a multilayer coating.
+
+    This routine evaluates the on-axis (specular) reflectivity of a multilayer
+    stack at a fixed grazing incidence angle for a vector of photon energies.
+    The layer thicknesses are provided from topmost to bottommost layer and
+    must contain an even number of layers (treated as bilayers). The complex
+    Fresnel recursion is performed through the stack; interfacial roughness is
+    included via a Nevot–Croce-like exponential damping factor.
+
+    Parameters
+    ----------
+    d_spacing : array_like
+        Layer thicknesses in Å, ordered from top to bottom. The number of layers
+        must be even. Layers are grouped into bilayers as:
+        ``de = d_spacing[0], d_spacing[2], ...`` and
+        ``do = d_spacing[1], d_spacing[3], ...``.
+    ener : array_like
+        Photon energies in keV (1D array). The returned reflectivity has the
+        same shape.
+    angle : float
+        Grazing incidence angle in radians (scalar). Used through ``sin(angle)``
+        and ``cos(angle)``.
+    rough : float
+        RMS interface roughness in Å (scalar). In the current implementation,
+        the same roughness is applied to all interfaces.
+    rs2 : array_like of complex
+        Squared complex refractive index of the substrate medium, evaluated at
+        ``ener``. In the calling code this is typically computed as
+        ``(n - 1j*k)**2`` after interpolating optical constants. :contentReference[oaicite:1]{index=1}
+    re2 : array_like of complex
+        Squared complex refractive index of one multilayer material (the "even"
+        layers), evaluated at ``ener``.
+    ro2 : array_like of complex
+        Squared complex refractive index of the other multilayer material (the
+        "odd" layers), evaluated at ``ener``.
+
+    Returns
+    -------
+    ref : numpy.ndarray
+        Specular reflectivity (dimensionless), i.e. ``|r|^2``, evaluated at each
+        energy in ``ener`` (same shape as ``ener``).
+
+    Notes
+    -----
+    - Wavelength is computed as ``lambda[Å] = 12.39841857 / E[keV]``.
+    - The function logs an error if ``len(d_spacing)`` is odd; it does not
+      explicitly raise an exception.
+
+    """
+    
     #call fortran routine for reflectivity calculation.
     #reflex=reflexf90.reflexmod.reflex(dspacing,ener,angles[ishell-1],roughness[0],rs2,re2,ro2)
 
@@ -281,6 +332,9 @@ def calc_reflex(d_spacing, ener, angle, rough, rs2, re2, ro2):
     return ref
     
 def ML_reflex(d_spacing, ener, angle, rough, indices):
+    """
+    To be implemented, still using calc_reflex. The only difference is the indices format.
+    """
 
     
     # This is IMD layer data format, note that Substrate is not specified. Layers go from topmost to bottom.

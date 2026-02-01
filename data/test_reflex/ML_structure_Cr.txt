@@ -1,0 +1,25 @@
+;							
+;  IMD Layer Data File							
+;							
+;  Index Material Thickness [A] Roughness [A] Interface Gr. Int. Layers Gr. Int. Width [A] Gr. Int. Distribution [%]							
+1	CH12O6_IMD_VC	45	2	0	0	0.00	0.00
+2	Cr	50	2	0	0	0.00	0.00
+2	Ir	25	2	0	0	0.00	0.00
+3	CH12O6_IMD_VC	45	2	0	0	0.00	0.00	
+4	Ir	25	2	0	0	0.00		0        .00
+5	CH12O6_IMD_VC	45	2	0	0	0.00	0.00	
+6	Ir	25	2	0	0	0.00		0        .00
+7	CH12O6_IMD_VC	45	2	0	0	0.00	0.00	
+8	Ir	25	2	0	0	0.00		0        .00
+9	CH12O6_IMD_VC	45	2	0	0	0.00	0.00	
+10	Ir	25	2	0	0	0.00		0        .00
+11	CH12O6_IMD_VC	45	2	0	0	0.00	0.00	
+12	Ir	25	2	0	0	0.00		0        .00
+13	CH12O6_IMD_VC	45	2	0	0	0.00	0.00	
+14	Ir	25	2	0	0	0.00		0        .00
+15	CH12O6_IMD_VC	45	2	0	0	0.00	0.00	
+16	Ir	25	2	0	0	0.00		0        .00
+17	CH12O6_IMD_VC	45	2	0	0	0.00	0.00	
+18	Ir	25	2	0	0	0.00		0        .00
+19	CH12O6_IMD_VC	45	2	0	0	0.00	0.00	
+20	Ir	25	2	0	0	0.00		0        .00

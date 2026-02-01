@@ -33,7 +33,7 @@ def loadArgs4():
 if __name__ == "__main__":
     
     # bisogna fare un test della reflettività
-                
+    folder = '.'
     datafolder=r'.\data\example_data_IMD' #os.path.dirname(os.path.abspath('.')) #((sys.argv[1]))  #project name
     
     ## prepare data structures and settings

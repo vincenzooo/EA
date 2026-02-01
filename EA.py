@@ -160,7 +160,9 @@ import ast
 
 
 #from internal_data.fortran_lib import reflexf90
-
+nkdir=os.path.join(os.path.dirname(__file__),r'internal_data\nk.dir')
+pi = np.pi
+h_c = 12.39841857
 
 def strExtractArray(string, checkNumeric=False):
     '''extract an array (of strings) from a string representation of an array (e.g.: '[1,2,3]'). 
@@ -185,9 +187,39 @@ def strExtractArray(string, checkNumeric=False):
     return elements
 
 def load_ri(materialsList):
-    '''build a dictionary for refraction indices.
-    The key is the material name (the nk file name).
-    Values are 1d interpolators'''
+    """
+    Build a dictionary of refractive-index interpolators from .nk tables.
+
+    For each unique material name in `materialsList`, this function loads the
+    corresponding file `<material>.nk` from `nkdir`. Each file is expected to
+    contain three columns: wavelength (lambda), n, and k. The wavelength column
+    is converted to photon energy via `h_c / lambda`, and the data are arranged
+    so that energy is monotonically increasing before interpolation.
+
+    The returned dictionary maps each material name to a 1D interpolator
+    (scipy.interpolate.interp1d). Calling the interpolator with an array of
+    energies returns a 2×N array where the first row is n(E) and the second row
+    is k(E).
+
+    Parameters
+    ----------
+    materialsList : array-like
+        List (or array) of material names. Each name must correspond to an
+        existing `<material>.nk` file under `nkdir`.
+
+    Returns
+    -------
+    dict
+        Dictionary `{material: interp}` where `interp(E)` returns `[[n(E)], [k(E)]]`
+        stacked along axis 0.
+
+    Notes
+    -----
+    - Energies outside the tabulated range will raise an error unless `interp1d`
+      is configured with `bounds_error=False` / `fill_value=...` (not done here).
+    - This function assumes `nkdir`, `h_c`, `np`, `os`, `logging`, and `interp1d`
+      are available in the module scope.
+    """
     
     matDic={}
     for material in np.unique(materialsList):
@@ -333,10 +365,37 @@ def calc_reflex(d_spacing, ener, angle, rough, rs2, re2, ro2):
     
 def ML_reflex(d_spacing, ener, angle, rough, indices):
     """
-    To be implemented, still using calc_reflex. The only difference is the indices format.
+    Specular X-ray reflectivity for a multilayer using Parratt recursion,
+    vectorized over multiple angles.
+
+    Parameters
+    ----------
+    d_spacing : array_like
+        Layer thicknesses in Å, ordered from top to bottom (length N).
+    ener : array_like
+        Photon energies in keV (1D array, length M).
+    angle : float or array_like
+        Grazing incidence angle(s) in radians. If array_like, length A.
+    rough : float
+        RMS interface roughness in Å (scalar), applied to all interfaces.
+    indices : sequence of array_like (complex), length N+1
+        Squared complex refractive indices (n - i k)^2 evaluated at `ener`,
+        ordered from substrate to top layer:
+
+            indices[0] = substrate (semi-infinite)
+            indices[1] = bottommost layer
+            ...
+            indices[N] = topmost layer
+
+        Each element can be scalar or 1D array broadcastable to `ener`.
+
+    Returns
+    -------
+    ref : numpy.ndarray
+        Reflectivity |r|^2 with shape (M,) if angle is scalar,
+        otherwise (A, M) if multiple angles are provided.
     """
 
-    
     # This is IMD layer data format, note that Substrate is not specified. Layers go from topmost to bottom.
     # ;   
     # ;  IMD Layer Data File
@@ -345,69 +404,86 @@ def ML_reflex(d_spacing, ener, angle, rough, indices):
     #     1	a-C	       25.000000	      0.00000000	       0	       0	      0.00000000	      0.00000000
     #     2	Ir	       300.00000	      0.00000000	       0	       0	      0.00000000	      0.00000000
     
-    #call fortran routine for reflectivity calculation.
-    #reflex=reflexf90.reflexmod.reflex(dspacing,ener,angles[ishell-1],roughness[0],rs2,re2,ro2)
+    if d_spacing[-1] is None:
+        d_spacing = d_spacing[:-1]       #last material is substrate
+    else:
+        indices.append(np.array([1.0 + 0j]*ener.size))  #assume last material is substrate vacuum
 
-    n_layers = len(d_spacing)
-    if n_layers % 2 != 0: logging.error('number of layers must be even!')
-    
-    n_bilayers = n_layers // 2
-    de = d_spacing[::2][:n_bilayers]
-    do = d_spacing[1::2][:n_bilayers]
+    d_spacing = np.asarray(d_spacing, dtype=float)
+    ener = np.asarray(ener, dtype=float)
+    angle = np.asarray(angle, dtype=float)
+
+    N = d_spacing.size
+    if len(indices) != N + 1:
+        raise ValueError(f"`indices` must have length {N+1}, got {len(indices)}.")
+
+    # --- broadcast indices to (N+1, M)
+    idx_list = []
+    for idx in indices:
+        arr = np.asarray(idx, dtype=complex)
+        if arr.ndim == 0:
+            arr = np.full_like(ener, arr, dtype=complex)
+        else:
+            arr = np.broadcast_to(arr, ener.shape).astype(complex, copy=False)
+        idx_list.append(arr)
+    idx_sub_to_top = np.vstack(idx_list)  # (N+1, M)
+
+    # Reorder to match d_spacing (top -> bottom)
+    n2_layers_top_to_bottom = idx_sub_to_top[:0:-1]  # (N, M): top..bottom
+    n2_sub = idx_sub_to_top[0]                        # (M,)
 
     # Constants
     pi = np.pi
     h_c = 12.39841857
-    r_l = h_c / ener  # Array of lambda values
+    lam = h_c / ener  # (M,)
 
-    coseno = np.cos(angle)
-    seno = np.sin(angle)
-    refv = np.abs(seno)
-    fv = refv + 1j * 0  # Convert to complex
-    
-    # Calculate factors that depend on energy
-    fo = np.sqrt(ro2 - coseno ** 2)
-    fe = np.sqrt(re2 - coseno ** 2)
-    fs = np.sqrt(rs2 - coseno ** 2)
-    
-    ffe = (fe - fo) / (fe + fo)
-    ffo = -ffe
-    ffs = (fe - fs) / (fe + fs)
-    
-    # Roughness calculations
-    sigma = rough ** 2
-    prefact = 2 * ((2 * pi) / r_l) ** 2
-    arg_e = fo * fe * sigma
-    arg_o = fo * fe * sigma
-    arg_v = fo * seno * sigma
-    arg_s = fe * fs * sigma
+    # Angles: allow scalar or vector
+    angles = angle.reshape(-1)          # (A,)
+    A = angles.size
+    cos2 = (np.cos(angles) ** 2).reshape(A, 1, 1)     # (A,1,1)
+    sin_abs = np.abs(np.sin(angles)).reshape(A, 1)    # (A,1)
 
-    fnevot_e = np.exp(-prefact * arg_e)
-    fnevot_o = np.exp(-prefact * arg_o)
-    fnevot_v = np.exp(-prefact * arg_v)
-    fnevot_s = np.exp(-prefact * arg_s)
+    # Build f = sqrt(n^2 - cos^2(angle)) for vacuum + layers + substrate
+    # f shape: (A, N+2, M)
+    f = np.empty((A, N + 2, ener.size), dtype=complex)
 
-    FcostO = ffe * fnevot_o
-    FcostE = ffo * fnevot_e
-    costO = -4 * 1j * pi * fo / r_l
-    costE = -4 * 1j * pi * fe / r_l
+    # Vacuum (incident medium): sqrt(1 - cos^2) = |sin|
+    f[:, 0, :] = (sin_abs + 0j)  # broadcast to (A, M)
 
-    # Initialize r
-    r = np.zeros_like(ener, dtype=complex)
-    
-    # Apply coating layers
-    for t in range(n_bilayers):
-        ao = np.exp(costO * do[t])
-        ae = np.exp(costE * de[t])
-        r = ae * (r + FcostO) / (r * FcostO + 1)
-        r += ao * (r + FcostE) / (r * FcostE + 1)
+    # Layers: sqrt(n2 - cos^2)
+    n2_layers_ = n2_layers_top_to_bottom.reshape(1, N, ener.size)  # (1,N,M)
+    f[:, 1:N+1, :] = np.sqrt(n2_layers_ - cos2)                    # (A,N,M)
 
-    ffv = (fv - fo) / (fv + fo)
-    r = (r + ffv * fnevot_v) / (r * ffv * fnevot_v + 1)
+    # Substrate: sqrt(n2_sub - cos^2)
+    n2_sub_ = n2_sub.reshape(1, 1, ener.size)                      # (1,1,M)
+    f[:, N+1, :] = np.sqrt(n2_sub_ - cos2).reshape(A, ener.size)   # (A,M)
 
-    ref = np.abs(r) ** 2  # Reflectivity calculation
+    # Roughness factor pieces
+    sigma2 = rough ** 2
+    prefact = 2.0 * ((2.0 * pi) / lam) ** 2        # (M,)
+    prefact = prefact.reshape(1, -1)               # (1,M) for broadcasting
 
-    return ref
+    # Parratt recursion from bottom to top
+    r = np.zeros((A, ener.size), dtype=complex)    # (A,M)
+
+    for j in range(N, -1, -1):
+        fj = f[:, j, :]       # (A,M)
+        fk = f[:, j + 1, :]   # (A,M)
+
+        rjk = (fj - fk) / (fj + fk)
+        rjk *= np.exp(-prefact * fj * fk * sigma2)  # Nevot–Croce-like damping
+
+        if j == N:
+            phase = 1.0
+        else:
+            phase = np.exp((-4.0j * pi * fk / lam.reshape(1, -1)) * d_spacing[j])
+
+        r = (rjk + r * phase) / (1.0 + rjk * r * phase)
+
+    ref = np.abs(r) ** 2
+
+    # Return 1D if input angle was scalar
+    return ref[0] if np.ndim(angle) == 0 else ref
 
 if __name__=="__main__":
         

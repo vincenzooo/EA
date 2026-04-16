@@ -1,0 +1,12 @@
+;   
+;  IMD Aperiodic Thickness Data File
+;   
+;  Repetition Material Thickness [A]
+       1	a-C	       70.000000
+       1	Pt	       30.000000
+       2	a-C	       70.000000
+       2	Pt	       30.000000
+       3	a-C	       70.000000
+       3	Pt	       30.000000
+       4	a-C	       70.000000
+       4	Pt	       30.000000

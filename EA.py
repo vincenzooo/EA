@@ -47,10 +47,10 @@ Format of geometry and coating file
 ----------
 ----------
 COATING:
-describes layers in format:
+describes layers in format (Roughness column is optional, assumed 0 if not present):
 ex:
-Thickness(A)	Material
-0	a-Si
+Thickness(A)	Material    Roughness(A)
+0	a-Si    3.0
 ..
 from substrate (thickness 0) to top layer. Material is a string indicating a file
 with optical constants, corresponding DABAX format (text file with extension .nk) 
@@ -81,6 +81,10 @@ For each group:
 # - test results for correct values
 # - separare routine di plot (in modo da poter chiamare solo quella 
 #   quando si vogliono cambiare i parametri di plot.
+
+# Changes
+# ----------
+# 2024/05/01 Added roughness col, was assumed 0.
 
 # 2018/04/29 copied from old backup MacriumReflect Disco_E:\work\WWDesign\web_app\EA.py (v1.4) 
 # start v1.5 with pandas for use in google sheets
@@ -145,14 +149,541 @@ For each group:
 import sys
 import os
 import logging
-
+import argparse
 
 from astropy.io import ascii as asciitable
 
-from pylab import * #equivalent to the 3 aboce, matplotlib must be installed.
+import numpy as np
+from matplotlib import pyplot as plt
 from scipy.interpolate.interpolate import interp1d
-from internal_data.fortran_lib import reflexf90
 import ast 
+
+
+#from internal_data.fortran_lib import reflexf90
+nkdir=os.path.join(os.path.dirname(__file__),r'internal_data\nk.dir')
+pi = np.pi
+h_c = 12.39841857
+
+def strExtractArray(string, checkNumeric=False):
+    '''extract an array (of strings) from a string representation of an array (e.g.: '[1,2,3]'). 
+    If checkNumeric is True, it expect the extracted values to be numbers and raise
+    exception if they are not. 
+    N.B.: it could be probably done with exec or something, but I am not sure it is safe
+    (any command passed will be executed)'''
+    def is_number(s):
+        try:
+            float(s)
+            return True
+        except ValueError:
+            return False
+
+    if string.strip()[0]+string.strip()[-1] != '[]': 
+        raise ValueError('The array is not included into square brakets')
+    elements=(string.strip()[1:-1]).split(',')
+    if checkNumeric:
+        for i in elements:
+            if not is_number(i): 
+                raise ValueError ( 'String in square brackets cannot be converted to array of numbers.')
+    return elements
+
+def load_ri(materialsList):
+    """
+    Build a dictionary of refractive-index interpolators from .nk tables.
+
+    For each unique material name in `materialsList`, this function loads the
+    corresponding file `<material>.nk` from `nkdir`. Each file is expected to
+    contain three columns: wavelength (lambda), n, and k. The wavelength column
+    is converted to photon energy via `h_c / lambda`, and the data are arranged
+    so that energy is monotonically increasing before interpolation.
+
+    The returned dictionary maps each material name to a 1D interpolator
+    (scipy.interpolate.interp1d). Calling the interpolator with an array of
+    energies returns a 2×N array where the first row is n(E) and the second row
+    is k(E).
+
+    Parameters
+    ----------
+    materialsList : array-like
+        List (or array) of material names. Each name must correspond to an
+        existing `<material>.nk` file under `nkdir`.
+
+    Returns
+    -------
+    dict
+        Dictionary `{material: interp}` where `interp(E)` returns `[[n(E)], [k(E)]]`
+        stacked along axis 0.
+
+    Notes
+    -----
+    - Energies outside the tabulated range will raise an error unless `interp1d`
+      is configured with `bounds_error=False` / `fill_value=...` (not done here).
+    - This function assumes `nkdir`, `h_c`, `np`, `os`, `logging`, and `interp1d`
+      are available in the module scope.
+    """
+    
+    matDic={}
+    for material in np.unique(materialsList):
+        table=np.loadtxt(os.path.join(nkdir,material+'.nk'),comments=';')
+        '''table is a n x 3 array with lambda, n and k.
+        the result of interp1d is a function that 
+        extract the interpolated rs2 at energy ener.'''
+        
+        en=h_c/table[-1:0:-1,0]
+        logging.debug('energy range: %s : %s'%(min(en),max(en)))
+        n=table[-1:0:-1,1]
+        k=table[-1:0:-1,2]
+        matDic[material]=interp1d(en,np.vstack((n,k)))
+
+    return matDic
+
+
+def mat2indices(materials, riDic, ener):
+    """Convenience function to get the refractive indices list from materials and energy array."""
+    
+    return [((a + 1j*b).conjugate())**2 for a,b in [riDic[mat](ener) for mat in materials[::-1]]]
+
+
+def read_geometry(configFolder,shellStructFile):
+    """ read geometry from file. angles and acoll are identified by column headers, respectively 'Angle(rad)' and 'Area(cm^2)' """
+    logger.info('Read geometry from file: %s in configFolder=%s'%(shellStructFile,configFolder))
+    geo=asciitable.read(os.path.join(configFolder,shellStructFile))
+    angles=geo['Angle(rad)']
+    shellAcoll=geo['Area(cm^2)']
+    logger.debug('Angles range(rad) %s -- %s, Acoll range(cm^2) %s -- %s\n'%(min(angles),max(angles),min(shellAcoll),max(shellAcoll)))
+    #read angles and area from shellstruct_start.  
+    return  angles, shellAcoll
+    
+def calc_reflex(d_spacing, ener, angle, rough, rs2, re2, ro2):
+
+    """
+    Compute the specular X-ray reflectivity of a multilayer coating.
+
+    This routine evaluates the on-axis (specular) reflectivity of a multilayer
+    stack at a fixed grazing incidence angle for a vector of photon energies.
+    The layer thicknesses are provided from topmost to bottommost layer and
+    must contain an even number of layers (treated as bilayers). The complex
+    Fresnel recursion is performed through the stack; interfacial roughness is
+    included via a Nevot–Croce-like exponential damping factor.
+
+    Parameters
+    ----------
+    d_spacing : array_like
+        Layer thicknesses in Å, ordered from top to bottom. The number of layers
+        must be even. Layers are grouped into bilayers as:
+        ``de = d_spacing[0], d_spacing[2], ...`` and
+        ``do = d_spacing[1], d_spacing[3], ...``.
+    ener : array_like
+        Photon energies in keV (1D array). The returned reflectivity has the
+        same shape.
+    angle : float
+        Grazing incidence angle in radians (scalar). Used through ``sin(angle)``
+        and ``cos(angle)``.
+    rough : float
+        RMS interface roughness in Å (scalar). In the current implementation,
+        the same roughness is applied to all interfaces.
+    rs2 : array_like of complex
+        Squared complex refractive index of the substrate medium, evaluated at
+        ``ener``. In the calling code this is typically computed as
+        ``(n - 1j*k)**2`` after interpolating optical constants. :contentReference[oaicite:1]{index=1}
+    re2 : array_like of complex
+        Squared complex refractive index of one multilayer material (the "even"
+        layers), evaluated at ``ener``.
+    ro2 : array_like of complex
+        Squared complex refractive index of the other multilayer material (the
+        "odd" layers), evaluated at ``ener``.
+
+    Returns
+    -------
+    ref : numpy.ndarray
+        Specular reflectivity (dimensionless), i.e. ``|r|^2``, evaluated at each
+        energy in ``ener`` (same shape as ``ener``).
+
+    Notes
+    -----
+    - Wavelength is computed as ``lambda[Å] = 12.39841857 / E[keV]``.
+    - The function logs an error if ``len(d_spacing)`` is odd; it does not
+      explicitly raise an exception.
+
+    """
+    
+    #call fortran routine for reflectivity calculation.
+    #reflex=reflexf90.reflexmod.reflex(dspacing,ener,angles[ishell-1],roughness[0],rs2,re2,ro2)
+
+    n_layers = len(d_spacing)
+    if n_layers % 2 != 0: logging.error('number of layers must be even!')
+    
+    n_bilayers = n_layers // 2
+    de = d_spacing[::2][:n_bilayers]
+    do = d_spacing[1::2][:n_bilayers]
+
+    # Constants
+    pi = np.pi
+    h_c = 12.39841857
+    r_l = h_c / ener  # Array of lambda values
+
+    coseno = np.cos(angle)
+    seno = np.sin(angle)
+    refv = np.abs(seno)
+    fv = refv + 1j * 0  # Convert to complex
+    
+    # Calculate factors that depend on energy
+    fo = np.sqrt(ro2 - coseno ** 2)
+    fe = np.sqrt(re2 - coseno ** 2)
+    fs = np.sqrt(rs2 - coseno ** 2)
+    
+    ffe = (fe - fo) / (fe + fo)
+    ffo = -ffe
+    ffs = (fe - fs) / (fe + fs)
+    
+    # Roughness calculations
+    sigma = rough ** 2
+    prefact = 2 * ((2 * pi) / r_l) ** 2
+    arg_e = fo * fe * sigma
+    arg_o = fo * fe * sigma
+    arg_v = fo * seno * sigma
+    arg_s = fe * fs * sigma
+
+    fnevot_e = np.exp(-prefact * arg_e)
+    fnevot_o = np.exp(-prefact * arg_o)
+    fnevot_v = np.exp(-prefact * arg_v)
+    fnevot_s = np.exp(-prefact * arg_s)
+
+    FcostO = ffe * fnevot_o
+    FcostE = ffo * fnevot_e
+    costO = -4 * 1j * pi * fo / r_l
+    costE = -4 * 1j * pi * fe / r_l
+
+    # Initialize r
+    r = np.zeros_like(ener, dtype=complex)
+    
+    # Apply coating layers
+    for t in range(n_bilayers):
+        ao = np.exp(costO * do[t])
+        ae = np.exp(costE * de[t])
+        r = ae * (r + FcostO) / (r * FcostO + 1)
+        r += ao * (r + FcostE) / (r * FcostE + 1)
+
+    ffv = (fv - fo) / (fv + fo)
+    r = (r + ffv * fnevot_v) / (r * ffv * fnevot_v + 1)
+
+    ref = np.abs(r) ** 2  # Reflectivity calculation
+
+    return ref
+    
+def ML_reflex(d_spacing, ener, angle, rough, indices):
+    """
+    Specular X-ray reflectivity for a multilayer using Parratt recursion,
+    vectorized over multiple angles.
+
+    Parameters
+    ----------
+    d_spacing : array_like
+        Layer thicknesses in Å, ordered from top to bottom (length N).
+    ener : array_like
+        Photon energies in keV (1D array, length M).
+    angle : float or array_like
+        Grazing incidence angle(s) in radians. If array_like, length A.
+    rough : float
+        RMS interface roughness in Å (scalar), applied to all interfaces.
+    indices : sequence of array_like (complex), length N+1
+        Squared complex refractive indices (n - i k)^2 evaluated at `ener`,
+        ordered from substrate to top layer:
+
+            indices[0] = substrate (semi-infinite)
+            indices[1] = bottommost layer
+            ...
+            indices[N] = topmost layer
+
+        Each element can be scalar or 1D array broadcastable to `ener`.
+
+    Returns
+    -------
+    ref : numpy.ndarray
+        Reflectivity |r|^2 with shape (M,) if angle is scalar,
+        otherwise (A, M) if multiple angles are provided.
+    """
+
+    # This is IMD layer data format, note that Substrate is not specified. Layers go from topmost to bottom.
+    # ;   
+    # ;  IMD Layer Data File
+    # ;   
+    # ;  Index Material Thickness [A] Roughness [A] Interface Gr. Int. Layers Gr. Int. Width [A] Gr. Int. Distribution [%]
+    #     1	a-C	       25.000000	      0.00000000	       0	       0	      0.00000000	      0.00000000
+    #     2	Ir	       300.00000	      0.00000000	       0	       0	      0.00000000	      0.00000000
+    
+    if d_spacing[-1] is None:
+        d_spacing = d_spacing[:-1]       #last material is substrate
+    else:
+        indices.append(np.array([1.0 + 0j]*ener.size))  #assume last material is substrate vacuum
+
+    d_spacing = np.asarray(d_spacing, dtype=float)
+    ener = np.asarray(ener, dtype=float)
+    angle = np.asarray(angle, dtype=float)
+
+    N = d_spacing.size
+    if len(indices) != N + 1:
+        raise ValueError(f"`indices` must have length {N+1}, got {len(indices)}.")
+
+    # --- broadcast indices to (N+1, M)
+    idx_list = []
+    for idx in indices:
+        arr = np.asarray(idx, dtype=complex)
+        if arr.ndim == 0:
+            arr = np.full_like(ener, arr, dtype=complex)
+        else:
+            arr = np.broadcast_to(arr, ener.shape).astype(complex, copy=False)
+        idx_list.append(arr)
+    idx_sub_to_top = np.vstack(idx_list)  # (N+1, M)
+
+    # Reorder to match d_spacing (top -> bottom)
+    n2_layers_top_to_bottom = idx_sub_to_top[:0:-1]  # (N, M): top..bottom
+    n2_sub = idx_sub_to_top[0]                        # (M,)
+
+    # Constants
+    pi = np.pi
+    h_c = 12.39841857
+    lam = h_c / ener  # (M,)
+
+    # Angles: allow scalar or vector
+    angles = angle.reshape(-1)          # (A,)
+    A = angles.size
+    cos2 = (np.cos(angles) ** 2).reshape(A, 1, 1)     # (A,1,1)
+    sin_abs = np.abs(np.sin(angles)).reshape(A, 1)    # (A,1)
+
+    # Build f = sqrt(n^2 - cos^2(angle)) for vacuum + layers + substrate
+    # f shape: (A, N+2, M)
+    f = np.empty((A, N + 2, ener.size), dtype=complex)
+
+    # Vacuum (incident medium): sqrt(1 - cos^2) = |sin|
+    f[:, 0, :] = (sin_abs + 0j)  # broadcast to (A, M)
+
+    # Layers: sqrt(n2 - cos^2)
+    n2_layers_ = n2_layers_top_to_bottom.reshape(1, N, ener.size)  # (1,N,M)
+    f[:, 1:N+1, :] = np.sqrt(n2_layers_ - cos2)                    # (A,N,M)
+
+    # Substrate: sqrt(n2_sub - cos^2)
+    n2_sub_ = n2_sub.reshape(1, 1, ener.size)                      # (1,1,M)
+    f[:, N+1, :] = np.sqrt(n2_sub_ - cos2).reshape(A, ener.size)   # (A,M)
+
+    # Roughness factor pieces
+    sigma2 = rough ** 2
+    prefact = 2.0 * ((2.0 * pi) / lam) ** 2        # (M,)
+    prefact = prefact.reshape(1, -1)               # (1,M) for broadcasting
+
+    # Parratt recursion from bottom to top
+    r = np.zeros((A, ener.size), dtype=complex)    # (A,M)
+
+    for j in range(N, -1, -1):
+        fj = f[:, j, :]       # (A,M)
+        fk = f[:, j + 1, :]   # (A,M)
+
+        rjk = (fj - fk) / (fj + fk)
+        rjk *= np.exp(-prefact * fj * fk * sigma2)  # Nevot–Croce-like damping
+
+        if j == N:
+            phase = 1.0
+        else:
+            phase = np.exp((-4.0j * pi * fk / lam.reshape(1, -1)) * d_spacing[j])
+
+        r = (rjk + r * phase) / (1.0 + rjk * r * phase)
+
+    ref = np.abs(r) ** 2
+
+    # Return 1D if input angle was scalar
+    return ref[0] if np.ndim(angle) == 0 else ref
+
+
+def print_energy_table(ener, areas, entarget, labels, title,**kwargs):
+    """
+   
+    Extract test values and prints a table with energy, areas, and
+    target values along with specified labels and title.
+    
+    It is a wrapper around the `extract_test_values` function, which is assumed to perform the actual extraction and formatting of the data. The resulting string is then printed to the console.
+    
+    :param ener: ener is a list of energy values in keV
+    :param areas: The `areas` parameter likely refers to the areas of different energy levels in a
+    system or dataset. It could represent the relative sizes or importance of different energy levels
+    within the context of the function `print_energy_table`
+    :param entarget: `entarget` seems to represent the target energy for a specific experiment or
+    calculation. It is likely a numerical value representing the desired energy level in kiloelectron
+    volts (keV)
+    :param labels: Labels are the names or descriptions associated with the data points in the energy
+    table. They help identify and differentiate the data points from each other
+    :param title: The `title` parameter is a string that represents the title of the energy table that
+    will be printed. It is used to provide a descriptive title for the table to help users understand
+    the content or purpose of the table
+    """
+    from dataIO.arrays import table_of_test_points
+    
+    s = table_of_test_points(
+        ener, areas, entarget,
+        labels=labels,
+        title=title,
+        x_name="Energy(keV)",
+        **kwargs
+    )
+    print(s)
+    
+
+if __name__=="__main__":
+        
+    def loadArgs4():
+        # EA.py Project00 [coating001.dat,coating002.dat,coating003.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+        """same interface as loadArgs3, uses argparser and get rid of the eval, code by chatGPT.  """
+        
+        parser = argparse.ArgumentParser(description="Process input arguments for the project.")
+        
+        # Add arguments to the parser
+        parser.add_argument('configFolder', type=str, help='Configuration folder path')
+        parser.add_argument('coatingList', type=str, help='List of coating data files')
+        parser.add_argument('groupList', type=str, help='Nested list of group IDs')
+        parser.add_argument('energyRange', type=str, help='Energy range and number of points')
+        
+        # Parse arguments
+        args = parser.parse_args()
+        print("args:",args)
+        
+        # Log the program call and arguments
+        logger.debug('program call:\n{}'.format(' '.join(sys.argv)))
+        logger.debug('arguments:\nconfigFolder: {}\ncoatingList: {}\ngroupList: {}\nenergyRange: {}'.format(
+            args.configFolder, args.coatingList, args.groupList, args.energyRange))
+        
+        # Process arguments
+        coatinglist = strExtractArray(args.coatingList)
+        grouplist = ast.literal_eval(args.groupList)
+        enerstart, enerend, npoints = strExtractArray(args.energyRange, checkNumeric=True)
+        ener = np.arange(float(enerstart), float(enerend), (float(enerend) - float(enerstart)) / int(npoints))
+        
+        return [args.configFolder, coatinglist, grouplist, ener]
+                
+    folder=os.path.dirname(os.path.abspath(sys.argv[1]))  #project name
+    
+    ## prepare data structures and settings
+    libdir=os.path.join(folder,'internal_data')  #useful ?
+    sys.path.append(libdir)
+    shellStructFile='shellStruct_start.txt'
+    nkdir=os.path.join(folder,'internal_data','nk.dir')
+    logfile=os.path.join(folder,'EAlog.txt')
+    
+    #set system
+    h_c=12.39841857 
+    linestyles=[ '-',':','-.','--']
+    colors="bgrcmyk"
+    os.chdir(folder)
+    logger = logging.getLogger(__name__)
+    #from logs import set_logger #2016/01/10 moved from EA.py
+    #logger = set_logger(logger)     
+    from dataIO.logs import start_logger, reset_logger
+    logger = start_logger(logger)
+    
+    ## translate the command line arguments into variables.
+    #CONFIGFOLDER: folder on the server containing data for a configuration (name of the project),
+    #COATINGLIST: list of filenames for all used coatings,
+    # for each coating, the element of GROUPLIST in the corresponding position is the list 
+    # of the shells numbers using the given coating.
+    # ex:
+    #['coating001.dat','coating002.dat','coating003.dat'] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
+    #N.B.: coating must be repeatable to allow the calculation of different geometrical groups with
+    #same coating.
+    
+    configFolder,coatinglist,grouplist,ener=loadArgs4()  
+    
+    ## read list of angles and area, column are recognized by the column label,
+    # assuming an EXACT syntax and no spaces for the single field (not very user friendly).
+    
+    angles,shellAcoll=read_geometry(configFolder, shellStructFile)
+    
+    ## calculate output
+    #def EffectiveArea(configFolder,coatinglist,grouplist,ener):
+    logger.info('Calculating effective area for %s groups'%len(grouplist))
+    
+    areatot=[]
+    for i,(coatingFile,group) in enumerate(zip(coatinglist,grouplist)):
+        logger.info('group %s: %s shells'%(i,len(group)))
+        
+        '''
+        coating=asciitable.read(os.path.join(configFolder,coatingFile)) #*legge il file del coating e imposta gli spessori
+        
+        #header:
+        #Thickness(A)    Material    Roughness(A)
+        materials = coating["Material"]
+        dspacing = coating["Thickness(A)"]
+        roughness = coating.get("Roughness(A)", dspacing*0)   
+        '''
+        
+        import numpy as np
+
+        # Read the CSV file
+        coat_file = os.path.join(configFolder,coatingFile)
+        data = np.genfromtxt(coat_file, delimiter='', names=True, dtype=None, encoding='utf-8')
+        coating = {name: data[name] for name in data.dtype.names}
+        
+        #header:
+        #Thickness(A)    Material    Roughness(A)
+        materials = coating["Material"]
+        dspacing = coating["ThicknessA"]
+        roughness = coating.get("RoughnessA", dspacing*0)   
+
+        logger.debug('Roughness first and last layer: %s ; %s'%(roughness[0],roughness[-1]))
+        logger.debug('Min and max dspacing: %s -- %s'%(min(dspacing),max(dspacing)))
+        
+        #read refraction indices from file
+        logger.debug('loading refraction indices for materials: %s'%";".join(materials))
+        riDic=load_ri(materials)
+        logger.debug("Calculating effective area for %s shells..."%len(group))
+        areagroup=ener*0
+        
+        for ishell in group:
+            #calculate reflex
+            #consider only first 3 materials.
+            rs2=riDic[materials[0]](ener)
+            rs2=(rs2[0,:] - 1j * rs2[1,:])**2
+            re2=riDic[materials[1]](ener)
+            re2=(re2[0,:] - 1j * re2[1,:])**2
+            ro2=riDic[materials[2]](ener)
+            ro2=(ro2[0,:] - 1j * ro2[1,:])**2
+            
+            #call fortran routine for reflectivity calculation.
+            #reflex=reflexf90.reflexmod.reflex(dspacing,ener,angles[ishell-1],roughness[0],rs2,re2,ro2)
+            reflex = calc_reflex(dspacing,ener,angles[ishell-1],roughness[0],rs2,re2,ro2) 
+            logger.debug("Reflex for shell #%s calculated"%ishell)
+            
+            #*scrivi parziale gruppo (scrivi parziale di ogni shell?)
+            areagroup=areagroup+shellAcoll[ishell-1]*reflex**2
+            
+        areatot.append(areagroup)
+    
+    areatot=np.array(areatot)
+    areatot=np.row_stack((areatot,np.sum(areatot,axis=0))).transpose()    
+    
+    #save .png and .svg plots
+    logger.info("Generating plot of total area.")
+    plt.figure()
+    plt.clf()
+    p=plt.plot(ener,areatot) #,title=configFolder+' Area' #,xlabel='Energy(keV)',ylabel='Effective area (cm$^2$)')
+    plt.grid(True)
+    plt.title(configFolder)
+    plt.xlabel('Energy (keV)')
+    for l, ls in zip(p,[linestyles[i] for i in np.arange(len(p))%len(linestyles)]):l.set_linestyle(ls)
+    legstr=map('Group '.__add__,map(str,range(1,len(grouplist)+1)))
+    plt.legend(legstr)
+    plt.ylabel('Effective Area (cm$^2$)')
+    plt.rc("axes", labelsize=10, titlesize=10)
+    plt.rc("xtick", labelsize=10)
+    plt.rc("ytick", labelsize=10)
+    plt.rc("font", size=10)
+    plt.rc("legend", fontsize=10)
+    plt.savefig(os.path.join(configFolder,'Effective_area_total.png'))
+    plt.savefig(os.path.join(configFolder,'Effective_area_total.svg'))    
+    
+    #savetxt(os.path.join(configFolder,'Effective_area.txt'),areatot)
+    f=open(os.path.join(configFolder,'Effective_area_total.dat'),'w')
+    f.write('#Energy(keV)\tAeff(cm^2)_for_'+'\t'.join(legstr)+'\tTotal\n')
+    outarr=np.concatenate((np.expand_dims(ener,-1),areatot),axis=1)
+    f.writelines('\t'.join(str(j) for j in i)+'\n' for i in outarr)
+    f.close()
+    
 '''
 from itertools import cycle
 lines = ["-","--","-.",":"]
@@ -179,268 +710,3 @@ styles = markers + [
     r'$\clubsuit$',
     r'$\checkmark$']
 '''
-
-
-def strExtractArray(string, checkNumeric=False):
-    '''extract an array (of strings) from a string representation of an array (e.g.: '[1,2,3]'). 
-    If checkNumeric is True, it expect the extracted values to be numbers and raise
-    exception if they are not. 
-    N.B.: it could be probably done with exec or something, but I am not sure it is safe
-    (any command passed will be executed)'''
-    def is_number(s):
-        try:
-            float(s)
-            return True
-        except ValueError:
-            return False
-
-    if string.strip()[0]+string.strip()[-1] != '[]': 
-        raise ValueError('The array is not included into square brakets')
-    elements=(string.strip()[1:-1]).split(',')
-    if checkNumeric:
-        for i in elements:
-            if not is_number(i): 
-                raise ValueError ( 'String in square brackets cannot be converted to array of numbers.')
-    return elements
-
-def load_ri(materialsList):
-    '''build a dictionary for refraction indices.
-    The key is the material name (the nk file name).
-    Values are 1d interpolators'''
-    
-    matDic={}
-    for material in unique(materialsList):
-        table=loadtxt(os.path.join(nkdir,material+'.nk'),comments=';')
-        '''table is a n x 3 array with lambda, n and k.
-        the result of interp1d is a function that 
-        extract the interpolated rs2 at energy ener.'''
-        
-        en=h_c/table[-1:0:-1,0]
-        logging.debug('energy range: %s : %s'%(min(en),max(en)))
-        n=table[-1:0:-1,1]
-        k=table[-1:0:-1,2]
-        matDic[material]=interp1d(en,vstack((n,k)))
-
-    return matDic
-
-def read_geometry(configFolder,shellStructFile):
-    """ read geometry from file. angles and acoll are identified by column headers, respectively 'Angle(rad)' and 'Area(cm^2)' """
-    logger.info('Read geometry from file: %s in configFolder=%s'%(shellStructFile,configFolder))
-    geo=asciitable.read(os.path.join(configFolder,shellStructFile))
-    angles=geo['Angle(rad)']
-    shellAcoll=geo['Area(cm^2)']
-    logger.debug('Angles range(rad) %s -- %s, Acoll range(cm^2) %s -- %s\n'%(min(angles),max(angles),min(shellAcoll),max(shellAcoll)))
-    #read angles and area from shellstruct_start.  
-    return  angles, shellAcoll
-   
-def set_logger(logger):
-    """set properties of a logger creating a new one if doesn't exist.
-    If existing, must have no handlers or two handlers file and console."""
-    
-    ## logger
-    '''
-    logging setup, remember the sequence below:
-    DEBUG, INFO, WARNING, ERROR, CRITICAL
-    '''
-     # add the handlers to logger, the condition is useful if you launch repeatly the script from interpreter (avoid multiple messages)
-    ##2018/01/16 still doesn't work if there are file errors and only one handler is
-    ## created (console, not file), it files when it tries to close two handlers.   
-    logger.setLevel(logging.DEBUG)
-    # create file and console handlers which log even debug messages
-    if len(logging.root.handlers) == 0:
-
-        # create console handler with a higher log level
-        
-        fh = logging.FileHandler(logfile)        #logging.basicConfig(format='%(asctime)s %(name)-12s  
-        logger.addHandler(fh)       
-        ch = logging.StreamHandler()
-        logger.addHandler(ch)
-     
-        logger.info("\n%"+15*"--"+"\nlogging started on "+logfile)
-    else:
-        fh,ch=logging.root.handlers
-    fh.setLevel(logging.DEBUG)
-    ch.setLevel(logging.INFO)
-    # create formatter and add it to the handlers
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    ch.setFormatter(formatter)
-    fh.setFormatter(formatter)
-    return logger   
-    
-if __name__=="__main__":
-    '''three routines with different evolutions of the command line syntax.
-    Example of the command line syntax is in the comment of each routine.'''
-
-    def loadArgs():
-        #load variables with command line arguments 
-        # EA.py Configfolder ['coating1.xml','coating2.xml','coating3.xml'] [[1,10,1],[11,20,2],[21,31,2]] [1.,80.,80]
-        configFolder=sys.argv[1]    
-        coatinglist=sys.argv[2]
-        grouplist=ast.literal_eval(sys.argv[3])
-        enerstart,enerend,npoints=strExtractArray(sys.argv[4],checkNumeric=True)
-        ener=arange(enerstart,enerend,npoints)
-        return [configFolder,coatinglist,grouplist,ener]
-    
-    def loadArgs2():
-        # EA.py Configfolder ['coating1.xml','coating2.xml','coating3.xml'] [1,2,2,3] [[1,2,3,4,5],[6,7,8,9],[10,11,12,13],[14,15]] [1.,80.,80]
-        logging.debug('%s called with parameters:'%(sys.argv[0],sys.argc[1:]))
-        configFolder=sys.argv[1]    
-        coatinglist=sys.argv[2]
-        coatIndexlist=strExtractArray(sys.argv[3])
-        grouplist=ast.literal_eval(sys.argv[4])
-        enerstart,enerend,npoints=strExtractArray(sys.argv[5],checkNumeric=True)
-        ener=arange(enerstart,enerend,npoints)        
-        return [configFolder,coatinglist,coatindexlist,grouplist,ener]
-
-    def loadArgs3():
-        # EA.py Project00 [coating001.dat,coating002.dat,coating003.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
-        logger.debug('program call:\n%s'%'\s'.join(sys.argv))
-        logger.debug('arguments:\n%s'%'\n'.join(sys.argv))
-        configFolder=sys.argv[1]    
-        coatinglist=strExtractArray(sys.argv[2])
-        grouplist=ast.literal_eval(sys.argv[3])
-        enerstart,enerend,npoints=strExtractArray(sys.argv[4],checkNumeric=True)
-        ener=arange(float(enerstart),float(enerend),(float(enerend)-float(enerstart))/long(npoints))        
-        return [configFolder,coatinglist,grouplist,ener]    
-        
-    def loadArgs4():
-        # EA.py Project00 [coating001.dat,coating002.dat,coating003.dat] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
-        """same interface as loadArgs3, uses argparser and get rid of the eval, code by chatGPT.  """
-        
-        parser = argparse.ArgumentParser(description="Process input arguments for the project.")
-        
-        # Add arguments to the parser
-        parser.add_argument('configFolder', type=str, help='Configuration folder path')
-        parser.add_argument('coatingList', type=str, help='List of coating data files')
-        parser.add_argument('groupList', type=str, help='Nested list of group IDs')
-        parser.add_argument('energyRange', type=str, help='Energy range and number of points')
-        
-        # Parse arguments
-        args = parser.parse_args()
-        
-        # Log the program call and arguments
-        logger.debug('program call:\n{}'.format(' '.join(sys.argv)))
-        logger.debug('arguments:\nconfigFolder: {}\ncoatingList: {}\ngroupList: {}\nenergyRange: {}'.format(
-            args.configFolder, args.coatingList, args.groupList, args.energyRange))
-        
-        # Process arguments
-        coatinglist = strExtractArray(args.coatingList)
-        grouplist = ast.literal_eval(args.groupList)
-        enerstart, enerend, npoints = strExtractArray(args.energyRange, checkNumeric=True)
-        ener = np.arange(float(enerstart), float(enerend), (float(enerend) - float(enerstart)) / int(npoints))
-        
-        return [args.configFolder, coatinglist, grouplist, ener]
-                
-    ##--------------------------
-    # argparse
-
-
-    folder=os.path.dirname(os.path.abspath(sys.argv[1]))  #project name
-    #print(folder)
-    #print(sys.argv[0])
-    #print(sys.argv)
-    
-    ## prepare data structures and settings
-    libdir=os.path.join(folder,'internal_data')  #useful ?
-    sys.path.append(libdir)
-    shellStructFile='shellStruct_start.txt'
-    nkdir=os.path.join(folder,'internal_data','nk.dir')
-    logfile=os.path.join(folder,'EAlog.txt')
-    
-    #set system
-    #h_c=reflexf90.reflexmod.h_c   #import constant, useless, can be set in python 
-    h_c=12.39841857 
-    linestyles=[ '-',':','-.','--']
-    colors="bgrcmyk"
-    os.chdir(folder)
-    logger = logging.getLogger(__name__)
-    logger = set_logger(logger)     
-    
-    ## translate the command line arguments in variable initialization.
-    #CONFIGFOLDER is the folder on the server containing data for a configuration
-    #(named with the name of the project),
-    #COATINGLIST is the list of filenames for all used coatings,
-    #for each coating, the element of GROUPLIST in the corresponding position is the list 
-    #of the shells numbers using the given coating.
-    # ex:
-    #['coating001.dat','coating002.dat','coating003.dat'] [[1,2,3,4,5,6],[7,8,9,10],[11,12]] [1.,10.,20]
-    configFolder,coatinglist,grouplist,ener=loadArgs4()  # 2024/05/01 not tested with 4, was loadArgs3
-    
-    #N.B.: coating must be repeatable to allow the calculation of different geometrical groups with
-    #same coating.
-    #------------------------------------------------------------------------
-    #read list of angles and area, column are recognized by the column label,
-    #assuming an EXACT syntax and no spaces for the single field
-    #(not very user friendly).
-    
-    angles,shellAcoll=read_geometry(configFolder, shellStructFile)
-    
-    #def EffectiveArea(configFolder,coatinglist,grouplist,ener):
-    ## calculate output
-    logger.info('Calculating effective area for %s groups'%len(grouplist))
-    areatot=[]
-    for i,(coatingFile,group) in enumerate(zip(coatinglist,grouplist)):
-        logger.info('group %s: %s shells'%(i,len(group)))
-        #*legge il file del coating e imposta gli spessori,
-        coating=asciitable.read(os.path.join(configFolder,coatingFile))
-        #header:
-        #Thickness(A)    Material    Roughness(A)
-        materials=coating["Material"]
-        dspacing=coating["Thickness(A)"]
-        roughness=dspacing*0 #coating.["Roughness(A)"]
-        logger.debug('Roughness first and last layer: %s ; %s'%(roughness[0],roughness[-1]))
-        logger.debug('Min and max dspacing: %s -- %s'%(min(dspacing),max(dspacing)))
-        #read refraction indices from file
-        logger.debug('loading refraction indices for materials: %s'%";".join(materials))
-        riDic=load_ri(materials)
-        logger.debug("Calculating effective area for %s shells..."%len(group))
-        areagroup=ener*0
-        for ishell in group:
-            #calculate reflex
-            #consider only first 3 materials.
-            rs2=riDic[materials[0]](ener)
-            rs2=(rs2[0,:] - 1j * rs2[1,:])**2
-            re2=riDic[materials[1]](ener)
-            re2=(re2[0,:] - 1j * re2[1,:])**2
-            ro2=riDic[materials[2]](ener)
-            ro2=(ro2[0,:] - 1j * ro2[1,:])**2
-            #call fortran routine for reflectivity calculation.
-            reflex=reflexf90.reflexmod.reflex(dspacing,ener,angles[ishell-1],roughness[0],rs2,re2,ro2)
-            logger.debug("Reflex for shell #%s calculated"%ishell)
-#            reflex=reflexf90.reflexmod.reflexcore(dspacing,ener,angles[ishell-1],roughness,rs2,re2,ro2)
-            #*scrivi parziale gruppo (scrivi parziale di ogni shell?)
-            areagroup=areagroup+shellAcoll[ishell-1]*reflex**2
-            #areatot=areatot+shellAcoll[ishell-1]*reflex**2
-        areatot.append(areagroup)
-    areatot=array(areatot)
-    areatot=row_stack((areatot,sum(areatot,axis=0)))
-    areatot=areatot.transpose()
-    
-    
-    #crea plot e immagine
-    #clf()
-    logger.info("Generating plot of total area.")
-    figure()
-    clf()
-    p=plot(ener,areatot) #,title=configFolder+' Area' #,xlabel='Energy(keV)',ylabel='Effective area (cm$^2$)')
-    grid(True)
-    title(configFolder)
-    xlabel('Energy (keV)')
-    for l, ls in zip(p,[linestyles[i] for i in arange(len(p))%len(linestyles)]):l.set_linestyle(ls)
-    legstr=map('Group '.__add__,map(str,range(1,len(grouplist)+1)))
-    legend(legstr)
-    ylabel('Effective Area (cm$^2$)')
-    rc("axes", labelsize=10, titlesize=10)
-    rc("xtick", labelsize=10)
-    rc("ytick", labelsize=10)
-    rc("font", size=10)
-    rc("legend", fontsize=10)
-    savefig(os.path.join(configFolder,'Effective_area_total.png'))
-    savefig(os.path.join(configFolder,'Effective_area_total.svg'))    
-    #savetxt(os.path.join(configFolder,'Effective_area.txt'),areatot)
-    f=open(os.path.join(configFolder,'Effective_area_total.dat'),'w')
-    f.write('#Energy(keV)\tAeff(cm^2)_for_'+'\t'.join(legstr)+'\tTotal\n')
-    outarr=concatenate((expand_dims(ener,-1),areatot),axis=1)
-    f.writelines('\t'.join(str(j) for j in i)+'\n' for i in outarr)
-    f.close()
-    

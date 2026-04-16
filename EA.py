@@ -236,6 +236,13 @@ def load_ri(materialsList):
 
     return matDic
 
+
+def mat2indices(materials, riDic, ener):
+    """Convenience function to get the refractive indices list from materials and energy array."""
+    
+    return [((a + 1j*b).conjugate())**2 for a,b in [riDic[mat](ener) for mat in materials[::-1]]]
+
+
 def read_geometry(configFolder,shellStructFile):
     """ read geometry from file. angles and acoll are identified by column headers, respectively 'Angle(rad)' and 'Area(cm^2)' """
     logger.info('Read geometry from file: %s in configFolder=%s'%(shellStructFile,configFolder))
@@ -484,6 +491,40 @@ def ML_reflex(d_spacing, ener, angle, rough, indices):
 
     # Return 1D if input angle was scalar
     return ref[0] if np.ndim(angle) == 0 else ref
+
+
+def print_energy_table(ener, areas, entarget, labels, title,**kwargs):
+    """
+   
+    Extract test values and prints a table with energy, areas, and
+    target values along with specified labels and title.
+    
+    It is a wrapper around the `extract_test_values` function, which is assumed to perform the actual extraction and formatting of the data. The resulting string is then printed to the console.
+    
+    :param ener: ener is a list of energy values in keV
+    :param areas: The `areas` parameter likely refers to the areas of different energy levels in a
+    system or dataset. It could represent the relative sizes or importance of different energy levels
+    within the context of the function `print_energy_table`
+    :param entarget: `entarget` seems to represent the target energy for a specific experiment or
+    calculation. It is likely a numerical value representing the desired energy level in kiloelectron
+    volts (keV)
+    :param labels: Labels are the names or descriptions associated with the data points in the energy
+    table. They help identify and differentiate the data points from each other
+    :param title: The `title` parameter is a string that represents the title of the energy table that
+    will be printed. It is used to provide a descriptive title for the table to help users understand
+    the content or purpose of the table
+    """
+    from dataIO.arrays import table_of_test_points
+    
+    s = table_of_test_points(
+        ener, areas, entarget,
+        labels=labels,
+        title=title,
+        x_name="Energy(keV)",
+        **kwargs
+    )
+    print(s)
+    
 
 if __name__=="__main__":
         

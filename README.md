@@ -15,6 +15,10 @@ Don't use any delimiter for strings (see example below).
 
 Notes
 ----------
+The original version was built to be called from command line (this documentation applies to command line) and
+	used a fortran dll, which was now completely ported to Python (see ``test_reflex.ipynb``
+for usage example).
+
 An online GUI with extended XML capabilities is available at http://hea-www.harvard.edu/WTD/
 from which this code is derived. Server is assumed to take care of folder structure and code
 has a fixed folder structure.
@@ -22,6 +26,17 @@ It assumes the output folder is existing.and contains
 (see below for description of formats) :
 * one text file with layers information for each coating
 * shelStruct_start.dat containing information on the geometry
+
+2026/02/27 Implemented as Python library and can now be called from Python.
+To use it, install the code in edit mode calling from this folder:
+
+	pip install -e .
+
+After this you should be able to import any function from any <module.py> in this folder with:
+
+from <module> import <function>
+
+(make sure you are using the same and environment on which you installed).
 
 Example
 ----------

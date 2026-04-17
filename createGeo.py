@@ -26,6 +26,7 @@ import sys
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional, Any
+import re
 
 PI = math.pi
 
@@ -97,56 +98,26 @@ def replace_fortran_exponent(s: str) -> str:
     # 1.0D+03 -> 1.0e+03
     return re.sub(r"([0-9])([dD])([+\-]?[0-9]+)", r"\1e\3", s)
 
+def namelist_from_string(l,separator="="):
+    """extract namelist parameters from a list of strings (e.g. file lines). """
+    l=[ll.strip() for ll in l if ll.count(separator) == 1 ]  #consider only valid line (one and only one = sign in the line).
+    dict={}
+    for ll in l:
+        s=ll.split(separator)
+        dict[s[0].strip()]=s[1].strip()
+    return dict    
 
-def read_namelist(filepath: Path, group: str = "geoSettings") -> Dict[str, Any]:
-    """
-    Minimal Fortran namelist reader for scalar values.
+def read_pars_from_namelist(filename,separator="="):
+    '''Read a set of parameters from a (fortran-like) namelist in file FILENAME.
+    Return a dictionary. All values are read as strings.
+    A file-object like io.StringIO(filetext) can be used in place of a real file.'''
+    
+    if hasattr(filename,'readlines'):
+        l=filename.readlines()
+    else:
+        l=open(filename,'r').readlines()
 
-    Looks for:
-        &geoSettings
-            key = value,
-            ...
-        /
-
-    Returns a dict with case-preserving keys as found; lookups should be case-insensitive.
-    """
-    raw_lines = filepath.read_text(encoding="utf-8", errors="ignore").splitlines()
-    cleaned = [_strip_fortran_comments(l).rstrip() for l in raw_lines]
-
-    # Find start of group
-    start_idx = None
-    group_pat = re.compile(rf"^\s*&\s*{re.escape(group)}\b", re.IGNORECASE)
-    for i, l in enumerate(cleaned):
-        if group_pat.search(l):
-            start_idx = i
-            break
-    if start_idx is None:
-        raise ValueError(f"Namelist group '{group}' not found in {filepath}")
-
-    # Collect until '/' or '&end'
-    block_lines: List[str] = []
-    for l in cleaned[start_idx:]:
-        if re.search(r"^\s*/\s*$", l) or re.search(r"^\s*&\s*end\b", l, re.IGNORECASE):
-            break
-        block_lines.append(l)
-
-    # Drop the leading "&group" line
-    if block_lines:
-        block_lines[0] = group_pat.sub("", block_lines[0])
-
-    block = " ".join(block_lines)
-    # Split into assignments by comma
-    parts = _split_top_level_commas(block)
-
-    out: Dict[str, Any] = {}
-    for p in parts:
-        if "=" not in p:
-            continue
-        k, v = p.split("=", 1)
-        key = k.strip()
-        val = _parse_fortran_scalar(v)
-        out[key] = val
-    return out
+    return namelist_from_string(l,separator=separator)
 
 
 def _get_ci(d: Dict[str, Any], key: str, default: Any = None) -> Any:
@@ -453,20 +424,20 @@ def write_shell_struct(out_path: Path, geom: Dict[str, List[float]], n_shells: i
 
 def main(argv: Optional[List[str]] = None) -> int:
     ap = argparse.ArgumentParser(description="Create shell geometry file (Python port of createGeo.f90).")
-    ap.add_argument("diameters", nargs="?", default=None,
-                    help="Optional file with diameters at the intersection plane (one per line).")
-    ap.add_argument("-s", "--settings", default="geoSettings.txt",
+    ap.add_argument("settings", default="geoSettings.txt",
                     help="Fortran namelist file containing &geoSettings (default: geoSettings.txt).")
+    ap.add_argument("-d","--diameters", default=None,
+                    help="Optional file with diameters at the intersection plane (one per line).")
     ap.add_argument("-o", "--output", default="shellStruct.dat",
                     help="Output geometry file (default: shellStruct.dat).")
     args = ap.parse_args(argv)
 
-    settings_path = Path(args.settings)
-    if not settings_path.exists():
+    settings_path = args.settings
+    if not Path(settings_path).exists():
         print(f"Error: settings file not found: {settings_path}", file=sys.stderr)
         return 2
-
-    d = read_namelist(settings_path, group="geoSettings")
+    
+    d = read_pars_from_namelist(settings_path)
     settings = GeoSettings.from_namelist(d)
 
     diam_path = Path(args.diameters) if args.diameters else None
@@ -475,7 +446,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         return 2
 
     print("Starting Python createGeo (port of createGeo.f90)")
-    print("Settings:", settings_path.resolve())
+    print("Settings:", Path(settings_path).resolve())
     if diam_path:
         print("Diameters:", diam_path.resolve())
     print(f"F_length (cm) = {settings.focal_length_m*100:.6f}")

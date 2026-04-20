@@ -1,0 +1,21 @@
+(base)>python createGeo.py data/geotest/geoSettings1.txt -o data/geotest/shellStruct1.txt
+Starting Python createGeo (height-based settings)
+Settings: G:\My Drive\progetti\POOL\coating_opt\fortran\EA\data\geotest\geoSettings1.txt
+F_length (cm) = 70.000000
+primary_height (mm) = 45.000000
+secondary_height (mm) = 45.000000
+Shell number: 12
+Total mass (kg): 0.801353
+Total collecting area (cm^2): 54.833058
+Geometry file successfully created: G:\My Drive\progetti\POOL\coating_opt\fortran\EA\data\geotest\shellStruct1.txt
+
+(base)>python createGeo.py data/geotest/geoSettings2.txt -o data/geotest/shellStruct2.txt
+Starting Python createGeo (height-based settings)
+Settings: G:\My Drive\progetti\POOL\coating_opt\fortran\EA\data\geotest\geoSettings2.txt
+F_length (cm) = 70.000000
+primary_height (mm) = 45.000000
+secondary_height (mm) = 45.000000
+Shell number: 12
+Total mass (kg): 0.801353
+Total collecting area (cm^2): 54.833058
+Geometry file successfully created: G:\My Drive\progetti\POOL\coating_opt\fortran\EA\data\geotest\shellStruct2.txt

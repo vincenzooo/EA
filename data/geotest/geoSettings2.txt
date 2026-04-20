@@ -1,0 +1,16 @@
+! Adattato da geoSettings1.txt (versione 1.2): usa primary_height/secondary_height + start
+&geoSettings
+nShells=12
+focal_length  = 0.7
+maxDiam = 152.783191
+angular_shell_separation_deg = 0.073
+primary_height = 45
+primary_start = 0.0
+secondary_height = 45
+secondary_start = 0.0
+thickness_intercept = 0.2
+thickness_slope = 0.000
+minThick = 0.2
+WallDensity = 8.8
+profileType = ph
+/

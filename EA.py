@@ -15,7 +15,7 @@ Don't use any delimiter for strings (see examples for sintax).
 Notes
 ----------
 This is version for server, assumes (see below for description of formats:
-- the output folder is existing.and contains:
+- the output folder is existing and contains:
 -- one text file with layers information for each coating
 -- shelStruct_start.dat containing information on the geometry
 
@@ -156,13 +156,13 @@ from astropy.io import ascii as asciitable
 import numpy as np
 from matplotlib import pyplot as plt
 from scipy.interpolate.interpolate import interp1d
+from scipy.constants import h, c, electron_volt
+
 import ast 
 
 
-#from internal_data.fortran_lib import reflexf90
 nkdir=os.path.join(os.path.dirname(__file__),r'internal_data\nk.dir')
-pi = np.pi
-h_c = 12.39841857
+h_c = h * c / electron_volt * 1e7   # 12.398419843320026
 
 def strExtractArray(string, checkNumeric=False):
     '''extract an array (of strings) from a string representation of an array (e.g.: '[1,2,3]'). 
@@ -253,123 +253,7 @@ def read_geometry(configFolder,shellStructFile):
     #read angles and area from shellstruct_start.  
     return  angles, shellAcoll
     
-def calc_reflex(d_spacing, ener, angle, rough, rs2, re2, ro2):
 
-    """
-    Compute the specular X-ray reflectivity of a multilayer coating.
-
-    This routine evaluates the on-axis (specular) reflectivity of a multilayer
-    stack at a fixed grazing incidence angle for a vector of photon energies.
-    The layer thicknesses are provided from topmost to bottommost layer and
-    must contain an even number of layers (treated as bilayers). The complex
-    Fresnel recursion is performed through the stack; interfacial roughness is
-    included via a Nevot–Croce-like exponential damping factor.
-
-    Parameters
-    ----------
-    d_spacing : array_like
-        Layer thicknesses in Å, ordered from top to bottom. The number of layers
-        must be even. Layers are grouped into bilayers as:
-        ``de = d_spacing[0], d_spacing[2], ...`` and
-        ``do = d_spacing[1], d_spacing[3], ...``.
-    ener : array_like
-        Photon energies in keV (1D array). The returned reflectivity has the
-        same shape.
-    angle : float
-        Grazing incidence angle in radians (scalar). Used through ``sin(angle)``
-        and ``cos(angle)``.
-    rough : float
-        RMS interface roughness in Å (scalar). In the current implementation,
-        the same roughness is applied to all interfaces.
-    rs2 : array_like of complex
-        Squared complex refractive index of the substrate medium, evaluated at
-        ``ener``. In the calling code this is typically computed as
-        ``(n - 1j*k)**2`` after interpolating optical constants. :contentReference[oaicite:1]{index=1}
-    re2 : array_like of complex
-        Squared complex refractive index of one multilayer material (the "even"
-        layers), evaluated at ``ener``.
-    ro2 : array_like of complex
-        Squared complex refractive index of the other multilayer material (the
-        "odd" layers), evaluated at ``ener``.
-
-    Returns
-    -------
-    ref : numpy.ndarray
-        Specular reflectivity (dimensionless), i.e. ``|r|^2``, evaluated at each
-        energy in ``ener`` (same shape as ``ener``).
-
-    Notes
-    -----
-    - Wavelength is computed as ``lambda[Å] = 12.39841857 / E[keV]``.
-    - The function logs an error if ``len(d_spacing)`` is odd; it does not
-      explicitly raise an exception.
-
-    """
-    
-    #call fortran routine for reflectivity calculation.
-    #reflex=reflexf90.reflexmod.reflex(dspacing,ener,angles[ishell-1],roughness[0],rs2,re2,ro2)
-
-    n_layers = len(d_spacing)
-    if n_layers % 2 != 0: logging.error('number of layers must be even!')
-    
-    n_bilayers = n_layers // 2
-    de = d_spacing[::2][:n_bilayers]
-    do = d_spacing[1::2][:n_bilayers]
-
-    # Constants
-    pi = np.pi
-    h_c = 12.39841857
-    r_l = h_c / ener  # Array of lambda values
-
-    coseno = np.cos(angle)
-    seno = np.sin(angle)
-    refv = np.abs(seno)
-    fv = refv + 1j * 0  # Convert to complex
-    
-    # Calculate factors that depend on energy
-    fo = np.sqrt(ro2 - coseno ** 2)
-    fe = np.sqrt(re2 - coseno ** 2)
-    fs = np.sqrt(rs2 - coseno ** 2)
-    
-    ffe = (fe - fo) / (fe + fo)
-    ffo = -ffe
-    ffs = (fe - fs) / (fe + fs)
-    
-    # Roughness calculations
-    sigma = rough ** 2
-    prefact = 2 * ((2 * pi) / r_l) ** 2
-    arg_e = fo * fe * sigma
-    arg_o = fo * fe * sigma
-    arg_v = fo * seno * sigma
-    arg_s = fe * fs * sigma
-
-    fnevot_e = np.exp(-prefact * arg_e)
-    fnevot_o = np.exp(-prefact * arg_o)
-    fnevot_v = np.exp(-prefact * arg_v)
-    fnevot_s = np.exp(-prefact * arg_s)
-
-    FcostO = ffe * fnevot_o
-    FcostE = ffo * fnevot_e
-    costO = -4 * 1j * pi * fo / r_l
-    costE = -4 * 1j * pi * fe / r_l
-
-    # Initialize r
-    r = np.zeros_like(ener, dtype=complex)
-    
-    # Apply coating layers
-    for t in range(n_bilayers):
-        ao = np.exp(costO * do[t])
-        ae = np.exp(costE * de[t])
-        r = ae * (r + FcostO) / (r * FcostO + 1)
-        r += ao * (r + FcostE) / (r * FcostE + 1)
-
-    ffv = (fv - fo) / (fv + fo)
-    r = (r + ffv * fnevot_v) / (r * ffv * fnevot_v + 1)
-
-    ref = np.abs(r) ** 2  # Reflectivity calculation
-
-    return ref
-    
 def ML_reflex(d_spacing, ener, angle, rough, indices):
     """
     Specular X-ray reflectivity for a multilayer using Parratt recursion,
@@ -439,9 +323,7 @@ def ML_reflex(d_spacing, ener, angle, rough, indices):
     n2_layers_top_to_bottom = idx_sub_to_top[:0:-1]  # (N, M): top..bottom
     n2_sub = idx_sub_to_top[0]                        # (M,)
 
-    # Constants
-    pi = np.pi
-    h_c = 12.39841857
+    # Calculate wavelength array from energy
     lam = h_c / ener  # (M,)
 
     # Angles: allow scalar or vector
@@ -467,7 +349,7 @@ def ML_reflex(d_spacing, ener, angle, rough, indices):
 
     # Roughness factor pieces
     sigma2 = rough ** 2
-    prefact = 2.0 * ((2.0 * pi) / lam) ** 2        # (M,)
+    prefact = 2.0 * ((2.0 * np.pi) / lam) ** 2        # (M,)
     prefact = prefact.reshape(1, -1)               # (1,M) for broadcasting
 
     # Parratt recursion from bottom to top
@@ -483,7 +365,7 @@ def ML_reflex(d_spacing, ener, angle, rough, indices):
         if j == N:
             phase = 1.0
         else:
-            phase = np.exp((-4.0j * pi * fk / lam.reshape(1, -1)) * d_spacing[j])
+            phase = np.exp((-4.0j * np.pi * fk / lam.reshape(1, -1)) * d_spacing[j])
 
         r = (rjk + r * phase) / (1.0 + rjk * r * phase)
 
@@ -556,21 +438,20 @@ if __name__=="__main__":
         ener = np.arange(float(enerstart), float(enerend), (float(enerend) - float(enerstart)) / int(npoints))
         
         return [args.configFolder, coatinglist, grouplist, ener]
-                
+    
     folder=os.path.dirname(os.path.abspath(sys.argv[1]))  #project name
     
     ## prepare data structures and settings
-    libdir=os.path.join(folder,'internal_data')  #useful ?
-    sys.path.append(libdir)
+    # libdir=os.path.join(folder,'internal_data')  #useful ?
+    # sys.path.append(libdir)
     shellStructFile='shellStruct_start.txt'
-    nkdir=os.path.join(folder,'internal_data','nk.dir')
+    nkdir=os.path.join('internal_data','nk.dir')
     logfile=os.path.join(folder,'EAlog.txt')
     
     #set system
-    h_c=12.39841857 
     linestyles=[ '-',':','-.','--']
     colors="bgrcmyk"
-    os.chdir(folder)
+    
     logger = logging.getLogger(__name__)
     #from logs import set_logger #2016/01/10 moved from EA.py
     #logger = set_logger(logger)     
@@ -598,9 +479,10 @@ if __name__=="__main__":
     #def EffectiveArea(configFolder,coatinglist,grouplist,ener):
     logger.info('Calculating effective area for %s groups'%len(grouplist))
     
-    areatot=[]
-    for i,(coatingFile,group) in enumerate(zip(coatinglist,grouplist)):
-        logger.info('group %s: %s shells'%(i,len(group)))
+    logger.info('Parse all coatings')
+
+    coatingDataList = []
+    for coatingFile in coatinglist:
         
         '''
         coating=asciitable.read(os.path.join(configFolder,coatingFile)) #*legge il file del coating e imposta gli spessori
@@ -618,6 +500,16 @@ if __name__=="__main__":
         coat_file = os.path.join(configFolder,coatingFile)
         data = np.genfromtxt(coat_file, delimiter='', names=True, dtype=None, encoding='utf-8')
         coating = {name: data[name] for name in data.dtype.names}
+        coatingDataList.append(coating)
+    
+    #build dictionary of optical constants interpolatrors for all coating materials in the telescope.    
+    materials=np.unique(np.concatenate([coating["Material"] for coating in coatingDataList]))
+    #read refraction indices from file
+    logger.debug('loading refraction indices for materials: %s'%";".join(materials))
+    riDic=load_ri(materials)  # dictionary of interpolators with all materials of interest
+        
+    for i,(coating,group) in enumerate(zip(coatingDataList,grouplist)):
+        logger.info('group %s: %s shells'%(i,len(group)))    
         
         #header:
         #Thickness(A)    Material    Roughness(A)
@@ -627,26 +519,19 @@ if __name__=="__main__":
 
         logger.debug('Roughness first and last layer: %s ; %s'%(roughness[0],roughness[-1]))
         logger.debug('Min and max dspacing: %s -- %s'%(min(dspacing),max(dspacing)))
-        
-        #read refraction indices from file
-        logger.debug('loading refraction indices for materials: %s'%";".join(materials))
-        riDic=load_ri(materials)
+            
+        areatot=[]
+
         logger.debug("Calculating effective area for %s shells..."%len(group))
         areagroup=ener*0
         
         for ishell in group:
             #calculate reflex
-            #consider only first 3 materials.
-            rs2=riDic[materials[0]](ener)
-            rs2=(rs2[0,:] - 1j * rs2[1,:])**2
-            re2=riDic[materials[1]](ener)
-            re2=(re2[0,:] - 1j * re2[1,:])**2
-            ro2=riDic[materials[2]](ener)
-            ro2=(ro2[0,:] - 1j * ro2[1,:])**2
+            indices = mat2indices(materials, riDic, ener)
             
             #call fortran routine for reflectivity calculation.
             #reflex=reflexf90.reflexmod.reflex(dspacing,ener,angles[ishell-1],roughness[0],rs2,re2,ro2)
-            reflex = calc_reflex(dspacing,ener,angles[ishell-1],roughness[0],rs2,re2,ro2) 
+            reflex = ML_reflex(d_spacing=dspacing, ener=ener, angle=angles[ishell-1]*np.pi/180, rough=roughness[0], indices=indices)
             logger.debug("Reflex for shell #%s calculated"%ishell)
             
             #*scrivi parziale gruppo (scrivi parziale di ogni shell?)

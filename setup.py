@@ -7,9 +7,8 @@ setup(
   description="Calculate Reflectivity and Effective area of a nested shell X-ray telescope.",
   author='Vincenzo Cotroneo',
   author_email='vincenzo.cotroneo@inaf.it',
-  install_requires=['wheel','numpy','matplotlib','scipy','IPython'],
+  install_requires=['wheel','numpy','matplotlib','scipy','IPython','astropy'],
   package_dir={'': '.'},
-  setup_requires=['numpy','astropy'],
   include_package_data=True
 )
 

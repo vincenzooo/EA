@@ -455,8 +455,9 @@ if __name__=="__main__":
     logger = logging.getLogger(__name__)
     #from logs import set_logger #2016/01/10 moved from EA.py
     #logger = set_logger(logger)     
-    from dataIO.logs import start_logger, reset_logger
-    logger = start_logger(logger)
+    # next two lines commented on 2026/04/30
+    # from dataIO.logs import start_logger, reset_logger
+    # logger = start_logger(logger)
     
     ## translate the command line arguments into variables.
     #CONFIGFOLDER: folder on the server containing data for a configuration (name of the project),
@@ -568,7 +569,8 @@ if __name__=="__main__":
     outarr=np.concatenate((np.expand_dims(ener,-1),areatot),axis=1)
     f.writelines('\t'.join(str(j) for j in i)+'\n' for i in outarr)
     f.close()
-    
+
+
 '''
 from itertools import cycle
 lines = ["-","--","-.",":"]

@@ -9,7 +9,7 @@ setup(
   author_email='vincenzo.cotroneo@inaf.it',
   install_requires=['wheel','numpy','matplotlib','scipy','IPython'],
   package_dir={'': '.'},
-  setup_requires=['numpy'],
+  setup_requires=['numpy','asciitable'],
   include_package_data=True
 )
 

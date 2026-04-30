@@ -541,7 +541,7 @@ if __name__=="__main__":
         areatot.append(areagroup)
     
     areatot=np.array(areatot)
-    areatot=np.row_stack((areatot,np.sum(areatot,axis=0))).transpose()    
+    areatot=np.vstack((areatot,np.sum(areatot,axis=0))).transpose()    
     
     #save .png and .svg plots
     logger.info("Generating plot of total area.")

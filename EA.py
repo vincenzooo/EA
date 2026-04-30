@@ -155,7 +155,7 @@ from astropy.io import ascii as asciitable
 
 import numpy as np
 from matplotlib import pyplot as plt
-from scipy.interpolate.interpolate import interp1d
+from scipy.interpolate import interp1d
 from scipy.constants import h, c, electron_volt
 
 import ast 
